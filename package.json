@@ -1,0 +1,34 @@
+{
+  "name": "ata",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2.7.1",
+    "@tauri-apps/plugin-opener": "^2",
+    "@vueuse/core": "^14.3.0",
+    "fzf": "^0.5.2",
+    "path": "^0.12.7",
+    "pinia": "^3.0.4",
+    "router": "^2.2.0",
+    "sass": "^1.100.0",
+    "url": "^0.11.4",
+    "vue": "^3.5.34",
+    "vue-router": "^5.0.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vue-tsc": "^2.1.10",
+    "@tauri-apps/cli": "^2"
+  },
+  "trustedDependencies": ["esbuild"]
+}

@@ -1,0 +1,20 @@
+:root {
+  --ata-main: #d6cab2;
+  --ata-accent: #706857;
+  --ata-accent-secondary: #c76248;
+  --ata-accent-tertiary: #6eb2a3;
+}
+
+:root.Replicant {
+  --ata-main: #d5d5d4;
+  --ata-accent: #65666a;
+  --ata-accent-secondary: #918881;
+  --ata-accent-tertiary: #b6ad8eAA;
+}
+
+$ata-main: var(--ata-main);
+$ata-accent: var(--ata-accent);
+$ata-accent-secondary: var(--ata-accent-secondary);
+$ata-accent-tertiary: var(--ata-accent-tertiary);
+
+$ata-black: #101429;
