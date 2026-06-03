@@ -1,25 +1,27 @@
 use std::sync::Mutex;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-mod data;
-mod installation;
-mod uninstallation;
-mod mod_managing;
-mod settings;
-mod settings_managing;
+mod backend;
+use backend::{
+    data,
+    installation,
+    mod_managing,
+    settings,
+    uninstallation
+};
 
 use data::Data;
-use installation::install_mod;
-use uninstallation::uninstall_mod;
-use mod_managing::list_mods;
-use mod_managing::enable_mod;
-use mod_managing::disable_mod;
 use settings::Settings;
-use settings_managing::{
-    get_settings,
-    set_style, set_palette, set_sorting_order,
-    set_files_conflict_resolution, set_keep_extracted_folders, set_extracted_folders_location,
-    set_game_path, set_discord_rich_presence
+
+mod commands;
+use commands::{
+    install_mod_command,
+    uninstall_mod_command,
+    list_mods_command,
+    enable_mod_command,
+    disable_mod_command,
+    load_settings_command,
+    update_setting_command
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -30,21 +32,13 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
-            install_mod,
-            uninstall_mod,
-            list_mods,
-            enable_mod,
-            disable_mod,
-            get_settings,
-            
-            set_style,
-            set_palette,
-            set_sorting_order,
-            set_files_conflict_resolution,
-            set_keep_extracted_folders,
-            set_extracted_folders_location,
-            set_game_path,
-            set_discord_rich_presence,
+            install_mod_command,
+            uninstall_mod_command,
+            list_mods_command,
+            enable_mod_command,
+            disable_mod_command,
+            load_settings_command,
+            update_setting_command,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

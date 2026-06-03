@@ -25,16 +25,9 @@ use sevenz_rust::decompress_file;
 use unrar::Archive;
 
 use crate::data::{Data, DataInteractionError, Mod, ModType};
-use crate::settings::Settings;
-
 
 use chrono::Utc;
 
-use tauri::{Emitter, Manager, State};
-use std::sync::Mutex;
-use tauri::AppHandle;
-
-use tokio::task;
 
 
 /// Installs a mod from a compressed archive and saves it in a config with user-decided name
@@ -64,57 +57,24 @@ use tokio::task;
 /// * [`InstallationError::InvalidFileName`] if one of the paths to a mod file is either root or ends in `..`
 /// * [`InstallationError::FileCopying`] if a problem occurs during file copying
 /// * [`InstallationError::DataSaving`] if the mod data couldn't be saved to the data file
-fn install_mod_inner(compressed_mod_folder_path: &Path, config: &mut Data, game_path: &PathBuf, answered_name: String, app: &AppHandle) -> Result<Mod, InstallationError> {
-    app.emit("setup", "Performing checks on PATH and NAME").unwrap();
+pub fn install_mod(compressed_mod_folder_path: &Path, answered_name: String, game_path: &PathBuf, config: &mut Data) -> Result<Mod, InstallationError> {
     if !compressed_mod_folder_path.exists() {
         return Err(InstallationError::FileNotFound(compressed_mod_folder_path.to_path_buf()));
     }
     config.name_exists(&answered_name)?;
-    
 
-    app.emit("decompression", "Unzipping the mod folder").unwrap();
     let mut mod_folder_path = decompress_folder(&compressed_mod_folder_path)?;
 
-    
-    app.emit("mod-analysis", "Analizing mod folder to understand mod type").unwrap();
     let mod_data = get_mod_data(&mut mod_folder_path)?
        	.ok_or(InstallationError::ModlessFolder(mod_folder_path.clone()))?;
 
-    
-    app.emit("mod-installation", "Installing mod files").unwrap();
     let mod_files = install(&mod_data.0, &mod_data.1, game_path)?;
     let installed_mod = Mod::new(answered_name.clone(), mod_files, true, mod_data.0, Utc::now());
 
-
-    app.emit("config-update", "Updating data file").unwrap();
    	config.save_new_mod(&installed_mod)
         .map_err(|er| InstallationError::Config(er))?;
 
-    
-    app.emit("success", format!("\n{}\n installed successfully", answered_name)).unwrap();
     Ok(installed_mod)
-}
-
-#[tauri::command]
-pub async fn install_mod(
-    compressed_mod_folder_path: String,
-    settings: State<'_, Mutex<Settings>>,
-    answered_name: String,
-    app: AppHandle,
-) -> Result<Mod, String> {
-    let path = PathBuf::from(&compressed_mod_folder_path);
-    let game_path = settings.lock().unwrap().game_path.clone();
-
-    task::spawn_blocking(move || {
-        let state = app.state::<Mutex<Data>>();
-        let mut cfg = state.lock().unwrap();
-        install_mod_inner(&path, &mut cfg, &game_path, answered_name, &app).map_err(|e| {
-            app.emit("error", e.to_string()).unwrap();
-            e.to_string()
-        })
-    })
-    .await
-    .map_err(|e| e.to_string())?
 }
 
 
