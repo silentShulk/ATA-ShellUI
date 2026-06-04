@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 import {
     useSettingsStore,
     Style, Palette, SortingOrder, ConflictResolution,
@@ -10,6 +11,11 @@ import {
 const settingsStore = useSettingsStore()
 
 const router = useRouter();
+
+onMounted(() => {
+    settingsStore.load_settings();
+});
+
 </script>
 
 
@@ -28,21 +34,21 @@ const router = useRouter();
 			<div id="style">
 			    <h3 class="option-name"> Style </h3>
 				<select class="ata-select ata-colors"
-				:value="settingsStore.settings.style" @change="settingsStore.setStyle(($event.target as HTMLSelectElement).value)">
+				:value="settingsStore.settings.style" @change="settingsStore.update_setting('style', ($event.target as HTMLSelectElement).value)">
 				    <option class="ata-option" v-for="(style) in Style" :value="style">{{ style }}</option>
 				</select>
 			</div>
 			<div id="palette">
 			    <h3 class="option-name"> Color Palette </h3>
 				<select class="ata-select ata-colors"
-				:value="settingsStore.settings.palette" @change="settingsStore.setPalette(($event.target as HTMLSelectElement).value)">
+				:value="settingsStore.settings.palette" @change="settingsStore.update_setting('palette', ($event.target as HTMLSelectElement).value)">
 				    <option v-for="(palette) in Palette" :value="palette">{{ palette }}</option>
 				</select>
 			</div>
 			<div id="sorting">
 			    <h3 class="option-name"> Mod Sorting </h3>
 				<select class="ata-select ata-colors"
-				:value="settingsStore.settings.sortingOrder" @change="settingsStore.setSortingOrder(($event.target as HTMLSelectElement).value)">
+				:value="settingsStore.settings.sortingOrder" @change="settingsStore.update_setting('sortingOrder', ($event.target as HTMLSelectElement).value)">
 				    <option v-for="(order) in SortingOrder" :value="order">{{ order }}</option>
 				</select>
 			</div>
@@ -51,14 +57,14 @@ const router = useRouter();
 			<div id="conflict">
 			    <h3 class="option-name"> Coflict Resolution </h3>
 				<select class="ata-select ata-colors"
-				:value="settingsStore.settings.filesConflictResolution" @change="settingsStore.setFilesConflictResolution(($event.target as HTMLSelectElement).value)">
+				:value="settingsStore.settings.filesConflictResolution" @change="settingsStore.update_setting('filesConflictResolution', ($event.target as HTMLSelectElement).value)">
 				    <option v-for="(resolution) in ConflictResolution" :value="resolution">{{ resolution }}</option>
 				</select>
 			</div>
 			<div id="keep">
 			    <h3 class="option-name"> Keep Extracted<br>Folders </h3>
 				<input type="checkbox" class="ata-checkbox ata-colors"
-				:checked="settingsStore.settings.keepExtractedFolders" @change="settingsStore.setKeepExtractedFolders(($event.target as HTMLInputElement).checked)">
+				:checked="settingsStore.settings.keepExtractedFolders" @change="settingsStore.update_setting('keepExtractedFolders', ($event.target as HTMLInputElement).value)">
 			</div>
 			<div id="location">
 			    <h3 class="option-name"> Extracted Folders<br>Location </h3>
@@ -66,7 +72,7 @@ const router = useRouter();
                 class="ata-input-text ata-colors" 
                 placeholder="/path/to/desired/location/"
                 :value="settingsStore.settings.extractedFoldersLocation" 
-                @change="settingsStore.setExtractedFoldersLocation(($event.target as HTMLTextAreaElement).value)">
+                @change="settingsStore.update_setting('extractedFoldersLocation', ($event.target as HTMLTextAreaElement).value)">
             </textarea>
 			</div>
 			
@@ -77,7 +83,7 @@ const router = useRouter();
     			class="ata-input-text ata-colors"
     			placeholder="/path/to/exe/folder/"
     			:value="settingsStore.settings.gamePath"
-    			@change="settingsStore.setGamePath(($event.target as HTMLTextAreaElement).value)">
+    			@change="settingsStore.update_setting('gamePath', ($event.target as HTMLTextAreaElement).value)">
 				</textarea>
 			</div>
 			<div id="copy">
@@ -93,7 +99,7 @@ const router = useRouter();
     			class="ata-input-text ata-colors"
     			placeholder="/path/to/exe/folder/"
     			:value="settingsStore.settings.discordRichPresence"
-    			@change="settingsStore.setDiscordRichPresence(($event.target as HTMLTextAreaElement).value)">
+    			@change="settingsStore.update_setting('discordRichPresence', ($event.target as HTMLTextAreaElement).value)">
 				</textarea>
 			</div>	
 

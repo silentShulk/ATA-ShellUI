@@ -65,14 +65,14 @@ onMounted(async () => {
 
 
 <template>
-<div class="ata-page" v-if="mods.length > 0" >
+<div class="ata-page">
     <header class="ata-header">
         <h1 class="ata-title"> Uninstall a Mod </h1>
     </header>
 
     <button class="ata-btn-back" @click="router.push('/')"> < </button>
 
-    <main id="mod-selection" class="ata-flex">
+    <main id="mod-selection" class="ata-flex" v-if="mods.length > 0">
         <div id="selector" class="ata-flex-column">
             <input 
                 id="mod-filterer"
@@ -118,20 +118,20 @@ onMounted(async () => {
             <button id="btn-uninstall-first" class="ata-btn" @click="uninstalling = true"> Uninstall all selected mods? </button>
         </div>
     </main>
-
+    
+    <main v-else class="ata-main ata-centered-content ata-flex-column">
+        <h1 class=""> No mods installed! </h1>
+        <button class="ata-btn ata-colors btn-install" @click="router.push('/install')">
+            <h1> <u>Install some mods here</u> </h1>
+        </button>
+    </main>
+    
     <div id="uninstall-confirm" v-if="(selectedMods.length > 0) && uninstalling">
         <button class="ata-btn ata-colors-critical btn-uninstall-confirm" @click="uninstall()">
             <h2> Are you sure you want to uninstall {{ selectedMods.length }} mod(s)? </h2>
         </button>
     </div>
 </div>
-
-<main v-else class="ata-main ata-centered-content ata-flex-column">
-    <h1 class=""> No mods installed! </h1>
-    <button class="ata-btn ata-colors btn-install" @click="router.push('/install')">
-        <h1> <u>Install some mods here</u> </h1>
-    </button>
-</main>
 </template>
 
 

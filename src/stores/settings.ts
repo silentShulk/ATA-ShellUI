@@ -54,8 +54,8 @@ export interface Settings {
 export const useSettingsStore = defineStore('settings', () => {
     const settings = ref<Settings>({} as Settings)
 
-    async function load() {
-        settings.value = await invoke('get_settings')
+    async function load_settings() {
+        settings.value = await invoke('load_settings_command')
 
         applyAll()
     }
@@ -64,62 +64,11 @@ export const useSettingsStore = defineStore('settings', () => {
         document.documentElement.classList.add(settings.value.palette)
     }
 
-    async function setStyle(selected: string) {
-        await invoke('set_style', { style: selected })
-    
-        const style = selected as Style
-        // Frontend style change
-        settings.value.style = style
-    }
-    async function setPalette(selected: string) {
-        const oldTheme = settings.value.palette
+    async function update_setting(setting: string, value: string) {
+        settings.value = await invoke('update_setting_command', { setting, value })
 
-        await invoke('set_palette', { palette: selected })
-        
-        const palette = selected as Palette
-        settings.value.palette = palette
-    
-        document.documentElement.classList.remove(oldTheme)
-        document.documentElement.classList.add(selected)
-    }
-    async function setSortingOrder(selected: string) {
-        await invoke('set_sorting_order', { sortingOrder: selected })
-    
-        const sortingOrder = selected as SortingOrder
-        settings.value.sortingOrder = sortingOrder
-    }
-    async function setFilesConflictResolution(selected: string) {
-        await invoke('set_files_conflict_resolution', { filesConflictResolution: selected })
-    
-        const filesConflictResolution = selected as ConflictResolution
-        settings.value.filesConflictResolution = filesConflictResolution
-    }
-    async function setKeepExtractedFolders(selected: boolean) {
-        await invoke('set_keep_extracted_folders', { keepExtractedFolders: selected })
-    
-        settings.value.keepExtractedFolders = selected
-    }
-    async function setExtractedFoldersLocation(selected: string) {
-        await invoke('set_extracted_folders_location', { extractedFoldersLocation: selected })
-    
-        const extractedFoldersLocation = selected as Path
-        settings.value.extractedFoldersLocation = extractedFoldersLocation
-    }
-    async function setGamePath(selected: string) {
-        await invoke('set_game_path', { gamePath: selected })
-    
-        const gamePath = selected as Path
-        settings.value.gamePath = gamePath
-    }
-    async function setDiscordRichPresence(selected: string) {
-        await invoke('set_discord_rich_presence', { discordRichPresence: selected })
-    
-        const discordRichPresence = selected
-        settings.value.discordRichPresence = discordRichPresence
+        applyAll()
     }
 
-    return { settings, load, setStyle, setPalette, setSortingOrder, setFilesConflictResolution, setKeepExtractedFolders, setExtractedFoldersLocation, setGamePath, setDiscordRichPresence }
+    return { settings, load_settings, update_setting }
 })
-
-
-
