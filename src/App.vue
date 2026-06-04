@@ -7,7 +7,7 @@ import { onMounted } from 'vue'
 const settingsStore = useSettingsStore()
 
 onMounted(async () => {
-    await settingsStore.load()
+    await settingsStore.load_settings()
 })
 
 </script>
