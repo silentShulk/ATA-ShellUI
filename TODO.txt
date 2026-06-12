@@ -1,0 +1,7 @@
+separate border class
+
+remake Uninstall
+    Liist goes all the way down
+    final button to the right 
+
+Make rust structs not need a ts equivalent

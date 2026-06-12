@@ -11,16 +11,16 @@ const mods = ref<Mod[]>([]);
 const isCompact = computed(() => mods.value.length >= 15);
 
 const enableMod = async (modName: string) => {
-    await invoke('enable_mod', { modName: modName });
-    mods.value = await invoke('list_mods');
+    await invoke('enable_mod_command', { modName: modName });
+    mods.value = await invoke('list_mods_command');
 };
 const disableMod = async (modName: string) => {
-    await invoke('disable_mod', { modName: modName });
-    mods.value = await invoke('list_mods');
+    await invoke('disable_mod_command', { modName: modName });
+    mods.value = await invoke('list_mods_command');
 };
 
 onMounted(async () => {
-    mods.value = await invoke('list_mods');
+    mods.value = await invoke('list_mods_command');
 });
 </script>
 
@@ -28,7 +28,7 @@ onMounted(async () => {
 
 <template>
 <div id="list-page" class="ata-page">
-    <header class="ata-header">
+    <header class="ata-header ata-colors">
         <h1 class="ata-title"> Installed Mods </h1>
         <h1 class="ata-title subtitle"> N. {{ mods?.length ?? 0 }} </h1>
     </header>
@@ -38,9 +38,9 @@ onMounted(async () => {
     <main id="mods-list" class="ata-main ata-grid" :class="isCompact ? 'mod-grid-compact' : 'mod-grid'">
         <div :id="`mod-${ index + 1 }`" class="ata-flex" v-for="(mod, index) in mods" :key="index">
             <h3 class="mod-index">{{ index + 1 }}.</h3>
-            <button class='ata-btn ata-small' :class="mod.enabled ? 'btn-enabled' : 'btn-disabled'"
+            <button class='ata-btn-small ata-border-radius ata-shadow' :class="mod.enabled ? 'ata-colors-enabled' : 'ata-colors-disabled'"
             @click="mod.enabled ? disableMod(mod.name) : enableMod(mod.name)">
-                <h2 class="mod-name">{{ mod.name }}</h2>
+                <h2 class="ata-spaceless mod-name">{{ mod.name }}</h2>
             </button> 
             <h3>{{ mod.modType }}</h3>
         </div>
@@ -64,14 +64,7 @@ onMounted(async () => {
     padding: 10px 10px 10px 20px;
 }
 
-.mod-name {
-    margin: 5px 5px 5px 5px;
-}
-
-.btn-enabled {
-    background-color: $ata-accent-tertiary;
-}
-.btn-disabled {
-    background-color: $ata-accent-secondary;
+.mod-name{
+    padding: 5px 5px 5px 5px;
 }
 </style>

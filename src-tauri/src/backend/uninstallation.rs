@@ -7,13 +7,13 @@
 //!
 //! Main function: [`uninstall_mod`]
 
+use crate::data::{Data, DataInteractionError, Mod};
+
 use std::fs::remove_file;
 
 use std::path::PathBuf;
 
 use thiserror::Error;
-
-use crate::data::{Data, Mod, DataInteractionError};
 
 
 
@@ -31,16 +31,17 @@ use crate::data::{Data, Mod, DataInteractionError};
 /// * [`UninstallationError::ModNotFound`] if no mod with `mod_name` exists in the data file
 /// * [`UninstallationError::FileDeletion`] if one of the mod's files could not be removed from disk
 /// * [`UninstallationError::DataSaving`] if the data file could not be updated after deletion
-pub fn uninstall_mod(mod_name: String, config: &mut Data) -> Result<Mod, UninstallationError> {
+pub fn uninstall_mod(config: &mut Data, mod_name: String) -> Result<Mod, UninstallationError> {
     let Some(mod_to_uninstall) = config.get_mod_by_name(&mod_name) else {
         return Err(UninstallationError::ModNotFound(mod_name));
     };
 
     remove_mod_files(&mod_to_uninstall.1.files)?;
 
-    config.remove_mod(mod_to_uninstall.0)
+    config
+        .remove_mod(mod_to_uninstall.0)
         .map_err(|e| UninstallationError::DataSaving(e))?;
-    
+
     Ok(mod_to_uninstall.1)
 }
 
@@ -84,8 +85,7 @@ pub enum UninstallationError {
 /// * [`UninstallationError::FileDeletion`] if any file could not be removed
 pub fn remove_mod_files(mod_files: &[PathBuf]) -> Result<(), UninstallationError> {
     for file in mod_files {
-        remove_file(&file)
-            .map_err(|er| UninstallationError::FileDeletion(file.clone(), er))?;
+        remove_file(&file).map_err(|er| UninstallationError::FileDeletion(file.clone(), er))?;
     }
 
     Ok(())

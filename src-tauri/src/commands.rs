@@ -1,4 +1,4 @@
-use tauri::State;
+use tauri::{AppHandle, Emitter, State};
 use std::sync::Mutex;
 
 use std::path::PathBuf;
@@ -22,46 +22,55 @@ use crate::mod_managing::{
 pub fn install_mod_command(
     compressed_mod_folder_path: PathBuf,
     answered_name: String,
-    settings: State<'_, Mutex<Settings>>,
-    data: State<'_, Mutex<Data>>,
+    forced_overwrite: bool,
+    settings: State<Mutex<Settings>>,
+    data: State<Mutex<Data>>,
+    app: AppHandle
 ) -> Result<Mod, String> {
-    let mut settings = settings.lock().unwrap();
+    let settings = settings.lock().unwrap();
     let mut data = data.lock().unwrap();
 
     install_mod(
         &compressed_mod_folder_path,
         answered_name,
-        &mut settings.game_path,
+        forced_overwrite,
+        &settings,
         &mut data,
-    ).map_err(|e| e.to_string())
+        &app
+    ).map_err(|e| {
+        app.emit("error", e.to_string()).unwrap();
+        e.to_string()
+    })
 }
 
 #[tauri::command]
 pub fn uninstall_mod_command(
     mod_name: String,
-    config: State<'_, Mutex<Data>>,
+    config: State<Mutex<Data>>,
 ) -> Result<Mod, String> {
     let mut config = config.lock().unwrap();
     
     uninstall_mod(
-        mod_name,
         &mut config,
+        mod_name,
     ).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn list_mods_command(
-    data: State<'_, Mutex<Data>>
+    settings: State<Mutex<Settings>>,
+    data: State<Mutex<Data>>
 ) -> Vec<Mod> {
-	let data = data.lock().unwrap();
-	
-	list_mods(&data)
+    let settings = settings.lock().unwrap();
+    let data = data.lock().unwrap();
+    
+	list_mods(&settings.sorting_order, &data.mods)
 }
 
 #[tauri::command]
 pub fn enable_mod_command(
     mod_name: String,
-    data: State<'_, Mutex<Data>>,
+    data: State<Mutex<Data>>,
 ) -> Result<Mod, String> {
     let mut data = data.lock().unwrap();
     
@@ -72,7 +81,7 @@ pub fn enable_mod_command(
 #[tauri::command]
 pub fn disable_mod_command(
     mod_name: String,
-    data: State<'_, Mutex<Data>>,
+    data: State<Mutex<Data>>,
 ) -> Result<Mod, String> {
     let mut data = data.lock().unwrap();
     
@@ -82,7 +91,7 @@ pub fn disable_mod_command(
 
 #[tauri::command]
 pub fn load_settings_command(
-    settings: State<'_, Mutex<Settings>>,
+    settings: State<Mutex<Settings>>,
 ) -> Settings {
     settings.lock().unwrap().clone()
 }
@@ -91,7 +100,7 @@ pub fn load_settings_command(
 pub fn update_setting_command(
     setting: String,
     value: String,
-    settings: State<'_, Mutex<Settings>>,
+    settings: State<Mutex<Settings>>,
 ) -> Result<Settings, String> {
     let mut settings = settings.lock().unwrap();
     

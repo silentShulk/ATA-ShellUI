@@ -27,8 +27,8 @@ async function install() {
     installationStarted.value = true;
 
     await nextTick()
-  
-    installedMod.value = await invoke('install_mod', { compressedModFolderPath: selectedFile.value, answeredName: `${modName.value}` });
+
+    installedMod.value = await invoke('install_mod_command', { compressedModFolderPath: selectedFile.value, answeredName: `${modName.value}`, forcedOverwrite: false});
 }
 </script>
 
@@ -36,7 +36,7 @@ async function install() {
 
 <template>
 <div id="install-page" class="ata-page">
-    <header class="ata-header">
+    <header class="ata-header ata-colors">
         <h1 class="ata-title"> Install a Mod </h1>
     </header>
 
@@ -45,7 +45,7 @@ async function install() {
     <main class="ata-main ata-flex-column">
         <div id="archive-selector" class="ata-flex">
             <h2> Select archive containing the mod (zip/7z/rar) </h2>
-            <button class="ata-btn ata-small ata-colors" @click="browse()"> Browse </button>
+            <button class="ata-btn-small ata-border-radius ata-shadow ata-colors-accent" @click="browse()"> Browse </button>
         </div>
         
         <div id="archive-details" class="ata-flex" v-if="selectedFile">
@@ -55,9 +55,9 @@ async function install() {
             </div>
             <div class="ata-flex-column">
                 <strong> Name for mod: </strong>
-                <input class="ata-input-text ata-colors mod-name" type="text" v-model="modName"/>
+                <input class="ata-input-text ata-colors-accent ata-border-radius mod-name" type="text" v-model="modName"/>
             </div>
-            <button class="ata-btn ata-small ata-colors" @click="install()" v-if="modName"> Install </button>
+            <button class="ata-btn-small ata-colors-accent ata-border-radius ata-shadow" @click="install()" v-if="modName"> Install </button>
         </div>
 
         <Console v-show="installationStarted"/>
@@ -78,7 +78,6 @@ async function install() {
 }
 
 .mod-name {
-    font-size: 1.1em;
     font-weight: bold;
 }
 </style>

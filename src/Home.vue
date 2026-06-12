@@ -10,20 +10,20 @@ const router = useRouter();
 <title> ATA </title>
  
 <div id="home-page" class="ata-page">
-    <header class="ata-header">
+    <header class="ata-header ata-colors">
         <h1 class="ata-title ata-spaceless"> ATA </h1>
         <h3 class="ata-title subtitle ata-spaceless"> Accord's Timeline Alterer </h3>
     </header>
  
     <main id="page-selector" class="ata-main ata-flex-column">
-        <div id="feature-selector" class="ata-grid main-grid">
-            <button id="btn-install" class="ata-btn ata-colors" @click="router.push('/install')"> Install a Mod </button>
-            <button id="btn-list" class="ata-btn ata-colors" @click="router.push('/list')"> Mod List </button>
-            <button id="btn-uninstall" class="ata-btn ata-colors" @click="router.push('/uninstall')"> Uninstall a mod </button>
-            <button id="btn-browse" class="ata-btn ata-colors" @click="router.push('/browse')"> Browse Mods Online </button>
+        <div id="feature-selector" class="ata-grid">
+            <button id="btn-install" class="ata-btn ata-colors-accent ata-border-radius ata-shadow" @click="router.push('/install')"> Install a Mod </button>
+            <button id="btn-list" class="ata-btn ata-colors-accent ata-border-radius ata-shadow" @click="router.push('/list')"> Mod List </button>
+            <button id="btn-uninstall" class="ata-btn ata-colors-accent ata-border-radius ata-shadow" @click="router.push('/uninstall')"> Uninstall a mod </button>
+            <button id="btn-browse" class="ata-btn ata-colors-accent ata-border-radius ata-shadow" @click="router.push('/browse')"> Browse Mods Online </button>
         </div>
 
-        <button id="btn-settings" class="ata-btn ata-centered ata-colors" @click="router.push('/settings')"> Settings </button>
+        <button id="btn-settings" class="ata-btn ata-centered ata-colors-accent ata-border-radius" @click="router.push('/settings')"> Settings </button>
     </main>
  
     <footer id="credits-footer" class="ata-footer">
@@ -40,7 +40,7 @@ const router = useRouter();
 
 
 <style scoped lang="scss">
-.main-grid {
+#feature-selector {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
@@ -55,7 +55,11 @@ const router = useRouter();
 #btn-list     { grid-area: list; }
 #btn-uninstall{ grid-area: uninstall; }
 #btn-browse     { grid-area: browse; }
- 
+
+#credits-footer {
+    background-color: $ata-accent-secondary;
+    color: $ata-black;
+}
 .creators {
     margin: 10px 0px 10px 0px;
 }

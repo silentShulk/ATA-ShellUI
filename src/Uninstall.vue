@@ -44,19 +44,19 @@ const toggleMod = (mod: Mod) => {
 
 async function uninstall() {
     for (const mod of selectedMods.value) {
-        await invoke('uninstall_mod', { modName: mod.name });
+        await invoke('uninstall_mod_command', { modName: mod.name });
     }
     
     selectedMods.value = [];
     currentIndex.value = 0;
     uninstalling.value = false;
     
-    mods.value = await invoke('list_mods');
+    mods.value = await invoke('list_mods_command');
     filteredMods.value = mods.value;
 }
 
 onMounted(async () => {
-    mods.value = await invoke('list_mods');
+    mods.value = await invoke('list_mods_command');
 
 	filteredMods.value = mods.value;
 });
@@ -66,7 +66,7 @@ onMounted(async () => {
 
 <template>
 <div class="ata-page">
-    <header class="ata-header">
+    <header class="ata-header ata-colors">
         <h1 class="ata-title"> Uninstall a Mod </h1>
     </header>
 
@@ -76,7 +76,7 @@ onMounted(async () => {
         <div id="selector" class="ata-flex-column">
             <input 
                 id="mod-filterer"
-                class="ata-input-text ata-colors"
+                class="ata-input-text ata-colors-accent"
                 placeholder="Search mod..."
                 @input="(e) => filterMods(e)"
             />
@@ -121,7 +121,7 @@ onMounted(async () => {
     
     <main v-else class="ata-main ata-centered-content ata-flex-column">
         <h1 class=""> No mods installed! </h1>
-        <button class="ata-btn ata-colors btn-install" @click="router.push('/install')">
+        <button class="ata-btn ata-colors-accent ata-centered-content ata-border-radius ata-shadow btn-install" @click="router.push('/install')">
             <h1> <u>Install some mods here</u> </h1>
         </button>
     </main>
@@ -160,8 +160,15 @@ onMounted(async () => {
     max-height: 70%;
 }
 .gradient-border {
-    background: linear-gradient(transparent) padding-box,
-                linear-gradient(180deg, $ata-main 0%, $ata-main 20%, $ata-accent 100%) border-box;
+    border: 5px solid transparent; 
+
+    background-image: 
+        linear-gradient($ata-main, $ata-accent-dark), 
+        linear-gradient(180deg, $ata-main 0%, $ata-accent-dark 100%);
+    
+    background-clip: padding-box, border-box;
+    
+    background-origin: padding-box, border-box;
 }
 
 .btn-mod {

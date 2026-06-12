@@ -15,8 +15,9 @@ const EVENTS = [
     'setup',
     'decompression',
     'mod-analysis',
-    'mod-installation',
-    'config-update',
+    'conflicts-check',
+    'installation',
+    'data-update',
     'success',
     'error',
 ];
@@ -45,11 +46,11 @@ watch(logs, async () => {
 
 
 <template>
-<main id="console" class="ata-colors ata-main ata-flex-column" ref="consoleEl">
+<main id="console" class="ata-colors-accent ata-main ata-flex-column ata-border-radius" ref="consoleEl">
     <strong v-for="log in logs" id="log-{{ log.event }}" :class="{
         'log-error': log.event === 'error',
         'log-success': log.event === 'success',
-        'log-line ata-colors': log.event !== 'error' && log.event !== 'success'
+        'log-line ata-colors-accent': log.event !== 'error' && log.event !== 'success'
     }">
         [{{ log.event }}] {{ log.message }}
     </strong>
@@ -62,8 +63,6 @@ watch(logs, async () => {
 #console {
     padding: 15px 15px 15px 15px;
     
-    border-radius: 15px;
-
     scroll-behavior: smooth;
     overflow-y: auto;
     
@@ -84,5 +83,7 @@ watch(logs, async () => {
     color: $ata-accent-secondary;
     font-weight: bold;
     font-size: 1.3em;
+
+    text-shadow: $ata-accent-secondary 0px 0px 20px, 0px 0px 30px $ata-accent-secondary;
 }
 </style>

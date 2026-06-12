@@ -1,20 +1,39 @@
 :root {
-  --ata-main: #d6cab2;
-  --ata-accent: #706857;
-  --ata-accent-secondary: #c76248;
-  --ata-accent-tertiary: #6eb2a3;
+    --ata-main: #d6cab2;
+    
+    --ata-accent: #706857;
+    --ata-accent-dark: #504635;
+    
+    --ata-accent-secondary: #c76248;
+    --ata-accent-tertiary: #6eb2a3;
+  
+    --ata-accent-secondary-dark: #b65135;
+    --ata-accent-tertiary-dark: #5da192;
 }
 
 :root.Replicant {
-  --ata-main: #d5d5d4;
-  --ata-accent: #65666a;
-  --ata-accent-secondary: #918881;
-  --ata-accent-tertiary: #b6ad8eAA;
+    --ata-main: #d5d5d4;
+    
+    --ata-accent: #65666a;
+    --ata-accent-dark: #545559
+    
+    --ata-accent-secondary: #918881;
+    --ata-accent-tertiary: #b6ad8e;
+
+    --ata-accent-secondary-dark: #807770
+    --ata-accent-tertiary-dark: #a59c7d
 }
 
 $ata-main: var(--ata-main);
+
 $ata-accent: var(--ata-accent);
+$ata-accent-dark: var(--ata-accent-dark);
+
 $ata-accent-secondary: var(--ata-accent-secondary);
 $ata-accent-tertiary: var(--ata-accent-tertiary);
 
+$ata-accent-secondary-dark: var(--ata-accent-secondary-dark);
+$ata-accent-tertiary-dark: var(--ata-accent-tertiary-dark);
+
 $ata-black: #101429;
+$ata-black-light: #21253a
