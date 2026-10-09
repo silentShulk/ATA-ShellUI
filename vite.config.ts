@@ -1,12 +1,29 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-// @ts-expect-error type error without @types/node package
 import process from "node:process";
+import { fileURLToPath } from "node:url";
+
+const colors = fileURLToPath(
+  new URL("./src/Styles/colors.scss", import.meta.url)
+).replace(/\\/g, "/");
+
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(() => ({
   plugins: [vue()],
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // vars only → every scss/vue style block get $main etc.
+        additionalData: (content: string, filename: string) =>
+          filename.replace(/\\/g, "/") === colors
+            ? content
+            : `@use "${colors}" as *;\n${content}`,
+      },
+    },
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

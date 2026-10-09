@@ -1,17 +1,29 @@
+%text-ata {
+    margin: 0
+}
+
 .ata-h1 {
-    font-size: 40;
+    @extend %text-ata;
+    
+    font-size: 40px;
     font-weight: bolder;
 }
 .ata-h2 {
-    font-size: 30;
+    @extend %text-ata;
+    
+    font-size: 30px;
     font-weight: bold;
 }
 .ata-h3 {
-    font-size: 20;
+    @extend %text-ata;
+    
+    font-size: 20px;
     font-weight: bold;
 }
 .ata-p {
-    font-size: 15;
+    @extend %text-ata;
+    
+    font-size: 15px;
 }
 
 .ata-font-text {

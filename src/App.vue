@@ -6,30 +6,43 @@ import Titlebar from './Components/Titlebar.vue';
 <template>
 <div id="root">
     <Titlebar />
-    <RouterView id="router"/>
+    <main id="router">
+        <RouterView />
+    </main>
 </div>
 </template>
 
-<style>
+<style lang="scss">
+html, body, #app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 #root {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 #router {
     display: flex;
     flex-direction: column;
-    min-height: 0
+    flex: 1;
+    
+    min-height: 0;
+
+    padding: 10px;
+    
+    background-color: $main;
 }
 
+.centered-h {
+    display: flex;
+    align-items: center;
+}
 .centered-v {
     display: flex;
-    align-items: center
-}
-
-html, body{
-    margin: 0;
-    padding: 0;
-    height: 100%;
+    justify-content: center;
 }
 </style>

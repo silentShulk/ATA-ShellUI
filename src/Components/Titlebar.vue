@@ -2,7 +2,7 @@
 </script>
 
 <template>
-<div id="titlebar" class="centered-v">
+<div id="titlebar" class="centered-h">
     <p>Home</p>
 </div>
 </template>
