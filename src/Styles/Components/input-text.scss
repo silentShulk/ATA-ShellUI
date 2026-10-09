@@ -1,0 +1,36 @@
+%input-text-ata {
+    display: flex;
+    
+    justify-content: left;
+    align-items: center;
+
+    padding: 10;
+}
+
+.ata-input-text-big {
+    @extend %ata-input-text;
+    
+    width: 480;
+    height: 90;
+
+    border-width: 10;
+    border-radius: 24;
+}
+.ata-input-text-medium {
+    @extend %ata-input-text;
+    
+    width: 320;
+    height: 67;
+
+    border-width: 5;
+    border-radius: 16;
+}
+.ata-input-text-small {
+    @extend %ata-input-text;
+    
+    width: 160;
+    height: 45;
+
+    border-width: 3;
+    border-radius: 16;
+}
