@@ -1,10 +1,30 @@
+.main {
+    color: $main;
+}
 .accent {
+    color: $accent;
+}
+.accent-secondary {
+    color: $accent-secondary;
+}
+.accent-tertiary {
+    color: $accent-tertiary;
+}
+.dark {
+    color: $dark-light;
+}
+
+.accent-border {
     background-color: $accent;
     
     border-style: solid;
     border-color: $accent-dark;
+
+    &hover {
+        background-color: $accent-dark;
+    }
 }
-.dark-red {
+.dark-secondary{
     background-color: $dark-light;
 
     border-style: solid;

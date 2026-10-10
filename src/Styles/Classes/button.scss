@@ -1,5 +1,11 @@
-.ata-btn-big {
+%btn-ata {
     display: flex;
+
+    cursor: pointer;
+}
+
+.ata-btn-big {
+    @extend %btn-ata;
     
     width: 560px;
     height: 270px;
@@ -13,7 +19,7 @@
     align-items: center;
 }
 .ata-btn-medium-big {
-    display: flex;
+    @extend %btn-ata;
 
     width: 270px;
     height: 135px;
@@ -27,7 +33,7 @@
     align-items: center;
 }
 .ata-btn-medium-small {
-    display: flex;
+    @extend %btn-ata;
     
     width: 160px;
     height: 90px;
@@ -41,7 +47,7 @@
     align-items: center;
 }
 .ata-btn-medium-long {
-    display: flex;
+    @extend %btn-ata;
 
     width: 270px;
     height: 90px;
@@ -57,7 +63,7 @@
     padding: 10;
 }
 .ata-btn-small {
-    display: flex;
+    @extend %btn-ata;
 
     width: 80px;
     height: 45px;
@@ -71,7 +77,7 @@
     align-items: center;
 }
 .ata-btn-small-long {
-    display: flex;
+    @extend %btn-ata;
     
     width: 160px;
     height: 45px;
