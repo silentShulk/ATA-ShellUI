@@ -4,5 +4,8 @@ import router from "./router";
 import "./Styles/typography.scss";
 import "./Styles/Classes/button.scss";
 import "./Styles/Classes/color-combos.scss";
+import '@fontsource/material-symbols-rounded'
+import '@fontsource/jetbrains-mono/400.css'
+import '@fontsource/jetbrains-mono/700.css'
 
 createApp(App).use(router).mount("#app");

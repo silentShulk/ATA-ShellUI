@@ -33,8 +33,14 @@ html, body, #app {
     min-height: 0;
 
     padding: 10px;
+    gap: 20px;
     
     background-color: $main;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .centered-h {
