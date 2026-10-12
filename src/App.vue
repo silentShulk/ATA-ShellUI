@@ -1,16 +1,41 @@
-<script setup>
+<script setup lang="ts">
 import { RouterView } from 'vue-router'
 import Titlebar from './Components/Titlebar.vue';
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const page = ref()
+
+watch(
+  () => route.path,
+  (path) => setNewPageName(path),
+  { immediate: true }
+)
+
+function setNewPageName(path: string) {
+  if (path === '/' || path === '') {
+    page.value = 'Home'
+  } else {
+    const cleanName = path.replace('/', '')
+    page.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1)
+  }
+}
 </script>
+
+
 
 <template>
 <div id="root">
-    <Titlebar data-tauri-drag-region page="Home"/>
+    <Titlebar data-tauri-drag-region :page="page"/>
     <main id="router">
         <RouterView />
     </main>
 </div>
 </template>
+
+
 
 <style lang="scss">
 *, *::before, *::after {

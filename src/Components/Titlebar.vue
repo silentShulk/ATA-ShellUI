@@ -6,13 +6,17 @@ const appWindow = getCurrentWindow();
 const props = defineProps<{
   page: string
 }>()
+
+function randomTitle(): string {
+  return 'aaa'
+}
 </script>
 
 <template>
 <div id="titlebar" class="align-items">
     <p id="page" class="ata-p ata-fonts-text">{{ props.page }}</p>
 
-    <p id="name" class="ata-p ata-fonts-text">aaa</p>
+    <p id="name" class="ata-p ata-fonts-text">{{randomTitle()}}</p>
     
     <div id="buttons" class="flex-row">
         <btn id="hide" class="ata-h3 ata-font-icons ata-btn-titlebar" @click="appWindow.minimize()">arrow_drop_down</btn>
@@ -34,8 +38,8 @@ const props = defineProps<{
     background: floralwhite;
 
     margin: 0;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 #page {
     justify-self: left;
