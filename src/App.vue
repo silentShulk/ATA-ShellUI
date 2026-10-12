@@ -47,15 +47,25 @@ html, body, #app {
     flex-direction: column;
 }
 .flex-row {
-    display: flex
+    display: flex;
+    flex-direction: row
 }
 
-.centered-h {
+.justify-items {
+    display: flex;
+    justify-items: center;
+}
+.align-items {
     display: flex;
     align-items: center;
 }
-.centered-v {
+
+.justify-self {
     display: flex;
-    justify-content: center;
+    justify-self: center;
+}
+.align-self {
+    display: flex;
+    align-self: center;
 }
 </style>

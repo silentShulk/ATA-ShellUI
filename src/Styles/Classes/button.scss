@@ -92,3 +92,15 @@
 
     padding: 10;
 }
+
+.ata-btn-titlebar {
+    @extend %btn-ata;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 16px;
+
+    align-items: center;
+    justify-content: center;
+}

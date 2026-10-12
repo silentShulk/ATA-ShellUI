@@ -2,39 +2,39 @@
 </script>
 
 <template>
-    <div id="title" class="flex-column centered-h">
+    <div id="title" class="flex-column align-items">
         <h1 class="ata-h1 ata-font-text">ATA</h1>
         <h2 class="ata-h2 ata-font-text">Accord's Timeline Alterer</h2>
     </div>
     <div id="features">
         <div id="features-grid">
             <button id="install" class="ata-btn-big accent-border">
-                <div class="flex-column centered-h centered-v main">
+                <div class="flex-column centered-h main">
                     <h1 class="ata-h1 ata-font-icons">install_desktop</h1>
                     <h1 class="ata-h1 ata-font-text">Install</h1>
                 </div>
             </button>
             <button id="manage" class="ata-btn-big accent-border">
-                <div class="flex-column centered-h centered-v main">
+                <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">database</h1>
                     <h1 class="ata-h1 ata-font-text">Manage</h1>
                 </div>
             </button>
             <button id="uninstall" class="ata-btn-big accent-border">
-                <div class="flex-column centered-h centered-v main">
+                <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">delete</h1>
                     <h1 class="ata-h1 ata-font-text">Uninstall</h1>
                 </div>
             </button>
             <button id="settings" class="ata-btn-big accent-border">
-                <div class="flex-column centered-h centered-v main">
+                <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">settings</h1>
                     <h1 class="ata-h1 ata-font-text">Settings</h1>
                 </div>
             </button>
         </div>
         <button id="launch" class="ata-btn-medium-big dark-secondary">
-            <div class="flex-column centered-h centered-v">
+            <div class="flex-column">
                 <h1 class="ata-h1 ata-font-icons accent-secondary">play_arrow</h1>
                 <h1 class="ata-h1 ata-font-text main">Launch</h1>
             </div>
