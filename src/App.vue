@@ -5,7 +5,7 @@ import Titlebar from './Components/Titlebar.vue';
 
 <template>
 <div id="root">
-    <Titlebar />
+    <Titlebar data-tauri-drag-region page="Home"/>
     <main id="router">
         <RouterView />
     </main>
@@ -13,6 +13,10 @@ import Titlebar from './Components/Titlebar.vue';
 </template>
 
 <style lang="scss">
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html, body, #app {
     margin: 0;
     padding: 0;
@@ -41,6 +45,9 @@ html, body, #app {
 .flex-column {
     display: flex;
     flex-direction: column;
+}
+.flex-row {
+    display: flex
 }
 
 .centered-h {

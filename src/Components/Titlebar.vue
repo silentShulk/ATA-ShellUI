@@ -1,9 +1,18 @@
-<script>
+<script setup lang="ts">
+const props = defineProps<{
+  page: string
+}>()
 </script>
 
 <template>
 <div id="titlebar" class="centered-h">
-    <p>Home</p>
+    <p class="ata-p ata-fonts-text">{{ props.page }}</p>
+    <p class="ata-p ata-fonts-text">aaa</p>
+    <div class="flex-row">
+        <p class="ata-p ata-font-icons">arrow_drop_down</p>
+        <p class="ata-p ata-font-icons">expand_content</p>
+        <p class="ata-p ata-font-icons">close</p>
+    </div>
 </div>
 </template>
 
@@ -15,6 +24,7 @@
     background: floralwhite;
 
     margin: 0;
-    padding: 0
+    padding-left: 10px;
+    padding-right: 20px;
 }
 </style>
