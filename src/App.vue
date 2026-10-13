@@ -67,6 +67,10 @@ html, body, #app {
     background-color: $main;
 }
 
+#title {
+    gap: 20;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -76,11 +80,11 @@ html, body, #app {
     flex-direction: row
 }
 
-.justify-items {
+.justify-center {
     display: flex;
     justify-items: center;
 }
-.align-items {
+.align-center {
     display: flex;
     align-items: center;
 }
