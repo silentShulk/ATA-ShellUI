@@ -4,8 +4,9 @@
 
 
 <template>
-<h1 class="ata-h1 ata-font-text">ATA</h1>
-
+<div id="title" class="align-center">
+    <h1 class="ata-h1 ata-font-text">Install</h1>
+</div>
 </template>
 
 

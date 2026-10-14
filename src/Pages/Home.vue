@@ -66,10 +66,10 @@ async function launch_automata() {
     'install manage'
     'uninstall settings';
 }
-#install {grid-area: "install"; justify-self: center;}
-#manage {grid-area: "manage"; justify-self: center}
-#uninstall {grid-area: "uninstall"; justify-self: center}
-#settings {grid-area: "settings"; justify-self: center}
+#install   { grid-area: install;   justify-self: center; }
+#manage    { grid-area: manage;    justify-self: center; }
+#uninstall { grid-area: uninstall; justify-self: center; }
+#settings  { grid-area: settings;  justify-self: center; }
 
 #launch {
     position: absolute;
