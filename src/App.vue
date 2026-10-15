@@ -67,10 +67,6 @@ html, body, #app {
     background-color: $main;
 }
 
-#title {
-    gap: 20;
-}
-
 .flex-column {
     display: flex;
     flex-direction: column;

@@ -48,6 +48,10 @@ async function launch_automata() {
 </template>
 
 <style lang="scss">
+#title {
+    gap: 20;
+}
+
 #features {
     padding-left: 10px;
     padding-right: 10px;
