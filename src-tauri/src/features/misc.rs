@@ -1,0 +1,83 @@
+//! **misc** is a module that contains utility functions for external processes
+//!
+//! This includes:
+//! * **launching**: Starting NieR:Automata using Steam URI invocation
+//!
+//! Main function: [`launch_automata`]
+
+// use std::sync::LazyLock;
+// use std::process::Command;
+// use std::time::{SystemTime, UNIX_EPOCH};
+// use thiserror::Error;
+// use discord_rich_presence::{DiscordIpc, DiscordIpcClient, activity::Activity, activity::Timestamps};
+
+// #[derive(Error, Debug)]
+// pub enum DiscordError {
+//     #[error("There was an error connecting to discord's IPC. {0}")]
+//     ClientConnection(#[from] discord_rich_presence::error::Error),
+//
+//     #[error("Couldn't set the user's activity on discord")]
+//     ActivitySetting(discord_rich_presence::error::Error)
+// }
+
+// #[derive(Debug, Copy, Clone)]
+// pub enum Action {
+//     JustOpened,
+//     Installing,
+//     Uninstalling,
+//     Enabling,
+//     Disabling,
+//     ListingMods,
+//     ChangingSettings,
+//     Playing
+// }
+// impl AsRef<str> for Action {
+//     fn as_ref(&self) -> &str {
+//         match self {
+//             Action::JustOpened => "Woke up silly...",
+//             Action::Installing => "Mixing universes together",
+//             Action::Uninstalling => "Unaltering Timelines",
+//             Action::Enabling => "Bringing back the chaos",
+//             Action::Disabling => "Taking a step back from the chaos",
+//             Action::ListingMods => "Taking a look at the mess they've made",
+//             Action::ChangingSettings => "Not-so-carefully playing with the cosmic dials",
+//             Action::Playing => "Enjoying their custom-made fan-fiction"
+//         }
+//     }
+// }
+
+// static START_TIME: LazyLock<i64> = LazyLock::new(|| {
+//     SystemTime::now()
+//         .duration_since(UNIX_EPOCH)
+//         .unwrap()
+//         .as_secs() as i64
+// });
+// const ATA_ID: &str = "1512579862676639864";
+
+// pub fn update_discord_rich_presence(drp: &String, last_action: Action) -> Result<(), DiscordError> {
+//     let mut client = DiscordIpcClient::new(ATA_ID);
+//     client.connect().map_err(|er| DiscordError::ClientConnection(er))?;
+
+//     let payload = Activity::new()
+//         .details(drp)
+//         .state(last_action.as_ref())
+//         .timestamps(Timestamps::new().start(*START_TIME));
+
+//     client.set_activity(payload).map_err(|er| DiscordError::ActivitySetting(er))?;
+//    
+//     Ok(())
+// }
+
+/// Launches NieR:Automata via Steam protocol standard (`steam://run/524220`)
+///
+/// Uses `xdg-open` on Linux targets and `cmd /C start` on Windows targets.
+///
+/// # Returns
+/// * [`Ok`] -> `()` on successfully spawning the process launcher command
+/// * [`Err`] -> [`std::io::Error`] if execution fails
+///
+/// # Errors
+/// * Returns [`std::io::Error`] if the underlying OS process launcher cannot be executed
+pub fn launch_automata_inner() -> Result<(), tauri_plugin_opener::Error> {
+    tauri_plugin_opener::open_url("steam://rungameid/524220", None::<&str>)
+}

@@ -1,5 +1,9 @@
-mod launch;
-use launch::launch_automata;
+// mod data;
+mod features;
+// mod utils;
+
+mod bindings;
+use bindings::launch_automata;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

@@ -7,7 +7,7 @@
 <div id="console">
     <div id="initializing" class="flex-row">
         <h1 class="ata-h1 ata-font-icons main">list</h1>
-        <h1 class="ata-h1 ata-font-text main">Initializing</h1>
+        <h1 class="ata-h1 ata-font-text main">Initializing...</h1>
     </div>
 </div>
 </template>
