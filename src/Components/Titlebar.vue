@@ -55,7 +55,7 @@ onMounted(async () => {
 
 <template>
 <div id="titlebar" class="align-center">
-    <p id="page" class="ata-p ata-fonts-text">{{ props.page }}</p>
+    <h3 id="page" class="ata-h3 ata-font-text">{{ props.page }}</h3>
 
     <btn id="name" class="ata-p ata-fonts-text" @click=randomizeTitle()>{{title}}</btn>
     

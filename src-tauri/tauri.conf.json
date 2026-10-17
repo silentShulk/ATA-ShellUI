@@ -15,7 +15,10 @@
         "title": "ata-shellui",
         "width": 1200,
         "height": 752,
-        "decorations": false
+        
+        "decorations": false,
+        "transparent": true,
+        "shadow": false
       }
     ],
     "security": {

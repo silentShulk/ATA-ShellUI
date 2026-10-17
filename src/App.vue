@@ -45,13 +45,16 @@ function setNewPageName(path: string) {
 html, body, #app {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
 }
 
 #root {
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    border-radius: 24px;
+    overflow: hidden;
 }
 
 #router {
@@ -67,6 +70,16 @@ html, body, #app {
     background-color: $main;
 }
 
+#content {
+    flex: 1;
+    
+    min-height: 0;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -76,21 +89,14 @@ html, body, #app {
     flex-direction: row
 }
 
-.justify-center {
-    display: flex;
-    justify-items: center;
-}
-.align-center {
-    display: flex;
-    align-items: center;
-}
+.justify-center { justify-content: center; }
+.align-center { align-items: center; }
 
-.justify-self {
-    display: flex;
-    justify-self: center;
-}
-.align-self {
-    display: flex;
-    align-self: center;
-}
+.justify-end { justify-content: flex-end; }
+.align-end { align-items: flex-end; }
+
+.justify-space-between { justify-content: space-between; }
+
+.justify-self-center { margin-inline: auto; }
+.align-self-center { align-self: center; }
 </style>

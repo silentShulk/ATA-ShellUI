@@ -11,7 +11,7 @@ async function launch_automata() {
         <h1 class="ata-h1 ata-font-text">ATA</h1>
         <h2 class="ata-h2 ata-font-text">Accord's Timeline Alterer</h2>
     </div>
-    <div id="features">
+    <div id="content">
         <div id="features-grid">
             <button id="install" class="ata-btn-big accent-border" @click="$router.push('/install')">
                 <div class="flex-column centered-h main">
@@ -52,11 +52,6 @@ async function launch_automata() {
     gap: 20;
 }
 
-#features {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
 #features-grid {
     display: grid;
 
