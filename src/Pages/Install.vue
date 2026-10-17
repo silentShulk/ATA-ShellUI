@@ -2,7 +2,17 @@
 import { reactive } from 'vue'
 import Console from '../Components/Console.vue'
 
-const steps = reactive([false, false, false, false])
+enum StepProgress { NotDone, Doing, Done }
+
+const steps = reactive([StepProgress.Doing, StepProgress.NotDone, StepProgress.NotDone, StepProgress.NotDone])
+
+const icons = ['counter_1', 'counter_2', 'counter_3', 'counter_4']
+
+const isActive = (i: number) =>
+  steps[i] === StepProgress.Doing || steps[i] === StepProgress.Done
+
+const lineHeight = (i: number) =>
+  steps[i] === StepProgress.Doing ? '245px' : '60px'
 </script>
 
 
@@ -12,15 +22,19 @@ const steps = reactive([false, false, false, false])
     <h1 class="ata-h1 ata-font-text">Install</h1>
 </div>
 <div id="content" class="flex-row justify-space-between">
-    <div id="installation-steps flex-column">
-        <h1 id="step-1" class="ata-h1 ata-font-icons" :class="steps[0] ? 'accent-tertiary' : 'accent-secondary'">counter_1</h1>
-        <div class="vl"></div>
-        <h1 id="step-2" class="ata-h1 ata-font-icons" :class="steps[1] ? 'accent-tertiary' : 'accent-secondary'">counter_2</h1>
-        <div class="vl"></div>
-        <h1 id="step-3" class="ata-h1 ata-font-icons" :class="steps[2] ? 'accent-tertiary' : 'accent-secondary'">counter_3</h1>
-        <div class="vl"></div>
-        <h1 id="step-4" class="ata-h1 ata-font-icons" :class="steps[3] ? 'accent-tertiary' : 'accent-secondary'">counter_4</h1>
+    <div id="installation-steps" class="flex-column align-center justify-space-between">
+        <template v-for="(icon, i) in icons" :key="i">
+            <h1 class="ata-h1 ata-font-icons step"
+                :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'">
+                {{ icon }}
+            </h1>
+            <div v-if="i < icons.length - 1"
+                 class="vl"
+                 :style="{ height: lineHeight(i) }">
+            </div>
+        </template>
     </div>
+
     <Console class="accent-border"/>
 </div>
 </template>
@@ -28,8 +42,15 @@ const steps = reactive([false, false, false, false])
 
 
 <style scoped lang="scss">
+.step { margin: 10px 0; }
+.step:first-child { margin-top: 0; }
+.step:last-child { margin-bottom: 0; }
+
 .vl {
-    border-left: 5px solid $dark;
-    flex: 1
+    width: 5px;
+    flex-shrink: 0;              // stop flex squash
+    background-color: $dark;
+    border-radius: 500px;
+    transition: height 0.3s ease; // smooth grow/shrink
 }
 </style>
