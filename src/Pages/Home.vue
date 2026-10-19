@@ -71,7 +71,7 @@ async function launch_automata() {
 #settings  { grid-area: settings;  justify-self: center; }
 
 #launch {
-    position: relative;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -10%);

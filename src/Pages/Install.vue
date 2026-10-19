@@ -20,16 +20,24 @@ const lineHeight = (i: number) =>
     <h1 class="ata-h1 ata-font-text">Install</h1>
 </div>
 <div id="content" class="flex-row justify-space-between">
-    <div id="installation-steps" class="flex-column align-center justify-space-between">
+    <div id="installation-steps" class="flex-column justify-space-between">
         <template v-for="(icon, i) in icons" :key="i">
             <btn class="ata-h1 ata-font-icons"
                 :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'"
-                @click="steps[i] = StepProgress.Doing; if (i!=3) steps[i-1] = StepProgress.Done">
+                @click="
+                    steps[i] = StepProgress.Doing;
+                    if (i != 3) steps[i - 1] = StepProgress.Done
+                    steps[i+1] = StepProgress.NotDone">
                 {{ icon }}
             </btn>
-            <div v-if="i < icons.length - 1"
-                class="vl"
-                :style="{ height: lineHeight(i) }">
+            <div class="flex-row">
+                <div v-if="i < icons.length - 1"
+                    class="vl"
+                    :style="{ height: lineHeight(i) }">
+                </div>
+                <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center">
+                    Ciao
+                </div>
             </div>
         </template>
     </div>
@@ -43,10 +51,23 @@ const lineHeight = (i: number) =>
 <style scoped lang="scss">
 .vl {
     width: 5px;
+
+    margin-left: 17px;
     
     background-color: $dark;
     border-radius: 16px;
     
     transition: height 0.3s ease;
+}
+
+.step-content {
+    width: 491px;
+    height: 225px;
+    
+    border: 2px solid $dark;
+    border-left: none;
+    border-radius: 0 16px 16px 0;
+
+    transition: width 0.5s ease;
 }
 </style>
