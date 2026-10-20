@@ -9,8 +9,16 @@ const icons = ['counter_1', 'counter_2', 'counter_3', 'counter_4']
 
 const isActive = (i: number) =>
   steps[i] === StepProgress.Doing || steps[i] === StepProgress.Done
-const lineHeight = (i: number) =>
-  steps[i] === StepProgress.Doing ? '245px' : '60px'
+const lineHeight = (i: number) => {
+  if (steps.every(x => x == StepProgress.Done)) return '122px'
+  else return (steps[i] === StepProgress.Doing ? '245px' : '60px')
+}
+
+const goTo = (i: number) => {
+  steps.fill(StepProgress.Done, 0, i)
+  steps[i] = i === steps.length - 1 ? StepProgress.Done : StepProgress.Doing
+  steps.fill(StepProgress.NotDone, i + 1)
+}
 </script>
 
 
@@ -24,11 +32,7 @@ const lineHeight = (i: number) =>
         <template v-for="(icon, i) in icons" :key="i">
             <btn class="ata-h1 ata-font-icons"
                 :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'"
-                @click="
-                    steps[i - 1] = StepProgress.Done;
-                    if (i != 3) steps[i] = StepProgress.Doing;
-                    else steps[i] = StepProgress.Done
-                    steps.fill(StepProgress.NotDone, i+1);">
+                @click="goTo(i)">
                 {{ icon }}
             </btn>
             <div class="flex-row">
@@ -36,9 +40,11 @@ const lineHeight = (i: number) =>
                     class="vl"
                     :style="{ height: lineHeight(i) }">
                 </div>
-                <div v-show="steps[i] === StepProgress.Doing" class="step-content align-self-center">
-                    Ciao
-                </div>
+                <Transition name="grow">
+                    <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center">
+                        Ciao
+                    </div>
+                </Transition>
             </div>
         </template>
     </div>
@@ -68,7 +74,16 @@ const lineHeight = (i: number) =>
     border: 2px solid $dark;
     border-left: none;
     border-radius: 0 16px 16px 0;
+}
 
-    transition: width 0.5s ease;
+.grow-enter-active{
+    transition: width 0.5s ease, height 0.3s ease;
+    overflow: hidden;
+}
+
+.grow-enter-from,
+.grow-leave-to {
+    width: 0;
+    height: 0;
 }
 </style>
