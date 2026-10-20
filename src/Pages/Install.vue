@@ -25,9 +25,10 @@ const lineHeight = (i: number) =>
             <btn class="ata-h1 ata-font-icons"
                 :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'"
                 @click="
-                    steps[i] = StepProgress.Doing;
-                    if (i != 3) steps[i - 1] = StepProgress.Done
-                    steps[i+1] = StepProgress.NotDone">
+                    steps[i - 1] = StepProgress.Done;
+                    if (i != 3) steps[i] = StepProgress.Doing;
+                    else steps[i] = StepProgress.Done
+                    steps.fill(StepProgress.NotDone, i+1);">
                 {{ icon }}
             </btn>
             <div class="flex-row">
@@ -35,7 +36,7 @@ const lineHeight = (i: number) =>
                     class="vl"
                     :style="{ height: lineHeight(i) }">
                 </div>
-                <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center">
+                <div v-show="steps[i] === StepProgress.Doing" class="step-content align-self-center">
                     Ciao
                 </div>
             </div>
