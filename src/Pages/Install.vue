@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import Console from '../Components/Console.vue'
+import { listen, UnlistenFn } from '@tauri-apps/api/event';
 
 enum StepProgress { NotDone, Doing, Done }
+const EVENTS = [
+    'setup',
+    'decompression',
+    'mod-analysis',
+    'conflicts-check',
+    'installation',
+    'data-update',
+    'success',
+    'error',
+];
+const unlisteners = new Map<string, UnlistenFn>()
 
 const steps = reactive([StepProgress.Doing, StepProgress.NotDone, StepProgress.NotDone, StepProgress.NotDone])
 const icons = ['counter_1', 'counter_2', 'counter_3', 'counter_4']
+
+for (const event in EVENTS) {
+  //unlisteners.set(event, listen<string>(event, (e) => {})) Should call function of COnsole that adds to logs and prints in the COnsole
+}
 
 const isActive = (i: number) =>
   steps[i] === StepProgress.Doing || steps[i] === StepProgress.Done
@@ -13,7 +29,6 @@ const lineHeight = (i: number) => {
   if (steps.every(x => x == StepProgress.Done)) return '122px'
   else return (steps[i] === StepProgress.Doing ? '245px' : '60px')
 }
-
 const goTo = (i: number) => {
   steps.fill(StepProgress.Done, 0, i)
   steps[i] = i === steps.length - 1 ? StepProgress.Done : StepProgress.Doing

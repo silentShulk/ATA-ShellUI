@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+interface LogEntry {
+  event: String,
+  message: String
+}
+
+// const props = defineProps<{
+//   logs: LogEntry
+// }>()
 </script>
 
 
