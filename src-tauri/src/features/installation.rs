@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use tauri::{AppHandle, Emitter};
 
-pub async fn install_mod_inner(app: AppHandle, answered_name: &str) -> Result<(), String> {
+pub fn install_mod_inner(app: AppHandle, answered_name: &str) -> Result<(), String> {
     app.emit("setup", "Performing checks on path and name").unwrap();
     std::thread::sleep(Duration::from_secs(1));
     

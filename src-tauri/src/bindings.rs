@@ -7,6 +7,6 @@ pub fn launch_automata() -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn install_mod(app: tauri::AppHandle, answered_name: &str) {
+pub fn install_mod(app: tauri::AppHandle, answered_name: &str) -> Result<(), String> {
     install_mod_inner(app, answered_name).map_err(|err| err.to_string())
 }

@@ -1,28 +1,39 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import Console from '../Components/Console.vue'
-import { listen, UnlistenFn } from '@tauri-apps/api/event';
+import { listen, UnlistenFn } from '@tauri-apps/api/event'
 
+// Steps
 enum StepProgress { NotDone, Doing, Done }
-const EVENTS = [
-    'setup',
-    'decompression',
-    'mod-analysis',
-    'conflicts-check',
-    'installation',
-    'data-update',
-    'success',
-    'error',
-];
-const unlisteners = new Map<string, UnlistenFn>()
-
 const steps = reactive([StepProgress.Doing, StepProgress.NotDone, StepProgress.NotDone, StepProgress.NotDone])
+const stepsEvents = ref<LogEntry[]>([])
+
+// Backend Events
+const EVENTS = [
+  'setup', 'decompression', 'mod-analysis', 'conflicts-check',
+  'installation', 'data-update', 'success', 'error',
+]
+
+const unlisteners: UnlistenFn[] = []
+
+onMounted(async () => {
+  for (const event of EVENTS) {
+    unlisteners.push(
+      await listen<string>(event, (e) => updateLogs(event, e.payload))
+    )
+  }
+})
+const updateLogs = (event: string, message: string) =>
+  stepsEvents.value.push({ event, message })
+
+onUnmounted(() => {
+  unlisteners.forEach(un => un())
+  unlisteners.length = 0
+})
+
+// HTML related
 const icons = ['counter_1', 'counter_2', 'counter_3', 'counter_4']
-
-for (const event in EVENTS) {
-  //unlisteners.set(event, listen<string>(event, (e) => {})) Should call function of COnsole that adds to logs and prints in the COnsole
-}
-
+const titles = ['AAA', 'BBB', 'CCC', 'DDD']
 const isActive = (i: number) =>
   steps[i] === StepProgress.Doing || steps[i] === StepProgress.Done
 const lineHeight = (i: number) => {
@@ -44,11 +55,15 @@ const goTo = (i: number) => {
 </div>
 <div id="content" class="flex-row justify-space-between">
     <div id="installation-steps" class="flex-column justify-space-between">
-        <template v-for="(icon, i) in icons" :key="i">
-            <btn class="ata-h1 ata-font-icons"
-                :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'"
-                @click="goTo(i)">
-                {{ icon }}
+        <template v-for="(title, i) in titles" :key="i">
+            <btn @click="goTo(i)">
+                    <div class="flex-row">
+                        <h1 class="ata-h1 ata-font-icons"
+                            :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'">
+                            {{"counter_" + (i+1)}}
+                        </h1>
+                        <h2 v-if="steps[i] == StepProgress.Doing" class="ata-h2 ata-font-text">{{title}}</h2>
+                    </div>
             </btn>
             <div class="flex-row">
                 <div v-if="i < icons.length - 1"
@@ -56,15 +71,19 @@ const goTo = (i: number) => {
                     :style="{ height: lineHeight(i) }">
                 </div>
                 <Transition name="grow">
-                    <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center">
-                        Ciao
+                    <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center flex-column">
+                        <h2 class="ata-h2 ata-font-text">Extensions: .zip/.7z/.rar</h2>
+                        <div class="step-buttons flex-column">
+                            <btn class="ata-btn-medium-small accent-border"></btn>
+                            <btn class="ata-btn-small dark-tertiary"></btn>
+                        </div>
                     </div>
                 </Transition>
             </div>
         </template>
     </div>
 
-    <Console class="accent-border"/>
+    <Console class="accent-border" :logs="stepsEvents"/>
 </div>
 </template>
 
@@ -85,10 +104,16 @@ const goTo = (i: number) => {
 .step-content {
     width: 491px;
     height: 225px;
+
+    padding: 10px;
+    gap: 20px;
     
     border: 2px solid $dark;
     border-left: none;
     border-radius: 0 16px 16px 0;
+}
+.step-buttons {
+    gap: 10px;
 }
 
 .grow-enter-active{
