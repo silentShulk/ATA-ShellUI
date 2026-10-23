@@ -32,8 +32,7 @@ onUnmounted(() => {
 })
 
 // HTML related
-const icons = ['counter_1', 'counter_2', 'counter_3', 'counter_4']
-const titles = ['AAA', 'BBB', 'CCC', 'DDD']
+const titles = ['Select the archive', 'Give a name', 'Confirmation', 'Success']
 const isActive = (i: number) =>
   steps[i] === StepProgress.Doing || steps[i] === StepProgress.Done
 const lineHeight = (i: number) => {
@@ -62,20 +61,43 @@ const goTo = (i: number) => {
                             :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'">
                             {{"counter_" + (i+1)}}
                         </h1>
-                        <h2 v-if="steps[i] == StepProgress.Doing" class="ata-h2 ata-font-text">{{title}}</h2>
+                        <h2 v-if="steps[i] == StepProgress.Doing || steps[steps.length-1] == StepProgress.Done"
+                        class="ata-h2 ata-font-text align-self-center step-title">
+                            {{title}}
+                        </h2>
                     </div>
             </btn>
             <div class="flex-row">
-                <div v-if="i < icons.length - 1"
+                <div v-if="i < titles.length - 1"
                     class="vl"
                     :style="{ height: lineHeight(i) }">
                 </div>
                 <Transition name="grow">
-                    <div v-if="steps[i] === StepProgress.Doing" class="step-content align-self-center flex-column">
-                        <h2 class="ata-h2 ata-font-text">Extensions: .zip/.7z/.rar</h2>
-                        <div class="step-buttons flex-column">
-                            <btn class="ata-btn-medium-small accent-border"></btn>
-                            <btn class="ata-btn-small dark-tertiary"></btn>
+                    <div v-if="steps[i] === StepProgress.Doing" class="align-self-center step-content">
+                        <div v-if="i==0" class="flex-column">
+                            <h2 class="ata-h2 ata-font-text step-instruction">Extensions: .zip/.7z/.rar</h2>
+                            <div class="step-buttons flex-column">
+                                <btn class="ata-btn-medium-small accent-border flex-column">
+                                    <h3 class="ata-h3 ata-font-icons main">drive_folder_upload</h3>
+                                    <h3 class="ata-h3 ata-font-text main">Select</h3>
+                                </btn>
+                                <btn class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
+                                    <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
+                                </btn>
+                            </div>
+                        </div>
+                        <div v-else-if="i==1" class="flex-column">
+                            <h2 class="ata-h2 ata-font-text step-instruction">Will be used for filtering and uninstalling</h2>
+                            <div class="step-buttons flex-column">
+                                INPUT
+                                <btn class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
+                                    <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
+                                </btn>
+                            </div>
+                        </div>
+                        <div v-else-if="i==2" class="flex-column">
+                            <h2 class="ata-h2 ata-font-text step-instruction">Installing ""</h2>
+                            <h2 class="ata-h2 ata-font-text">Wait for the installation process to be complete</h2>
                         </div>
                     </div>
                 </Transition>
@@ -101,16 +123,21 @@ const goTo = (i: number) => {
     transition: height 0.3s ease;
 }
 
+.step-title {
+    margin-left: 5px;
+}
 .step-content {
     width: 491px;
     height: 225px;
 
     padding: 10px;
-    gap: 20px;
     
     border: 2px solid $dark;
     border-left: none;
     border-radius: 0 16px 16px 0;
+}
+.step-instruction {
+    margin-bottom: 20px;
 }
 .step-buttons {
     gap: 10px;
