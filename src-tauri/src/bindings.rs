@@ -7,6 +7,12 @@ pub fn launch_automata() -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn install_mod(app: tauri::AppHandle, answered_name: &str) -> Result<(), String> {
-    install_mod_inner(app, answered_name).map_err(|err| err.to_string())
+pub async fn install_mod(
+    app: tauri::AppHandle,
+    answered_name: String,
+) -> Result<(), String> {
+    tauri::async_runtime::spawn_blocking(move || install_mod_inner(app, &answered_name))
+        .await
+        .map_err(|err| err.to_string())?
+        .map_err(|err| err.to_string())
 }

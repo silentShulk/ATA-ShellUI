@@ -57,12 +57,12 @@ onMounted(async () => {
 <div id="titlebar" class="align-center">
     <h3 id="page" class="ata-h3 ata-font-text">{{ props.page }}</h3>
 
-    <btn id="name" class="ata-p ata-fonts-text" @click=randomizeTitle()>{{title}}</btn>
+    <button id="name" class="ata-p ata-fonts-text unstyled-btn" @click=randomizeTitle()>{{title}}</button>
     
     <div id="buttons" class="flex-row">
-        <btn id="hide" class="ata-h3 ata-font-icons ata-btn-titlebar" @click="appWindow.minimize()">arrow_drop_down</btn>
-        <btn id="toggle-maximize" class="ata-h3 ata-font-icons ata-btn-titlebar" @click="appWindow.toggleMaximize()">expand_content</btn>
-        <btn id="close" class="ata-h3 ata-font-icons ata-btn-titlebar" @click="appWindow.close()">close</btn>
+        <button id="hide" class="ata-h3 ata-font-icons unstyled-btn ata-btn-titlebar" @click="appWindow.minimize()">arrow_drop_down</button>
+        <button id="toggle-maximize" class="ata-h3 ata-font-icons unstyled-btn ata-btn-titlebar" @click="appWindow.toggleMaximize()">expand_content</button>
+        <button id="close" class="ata-h3 ata-font-icons unstyled-btn ata-btn-titlebar" @click="appWindow.close()">close</button>
     </div>
 </div>
 </template>
