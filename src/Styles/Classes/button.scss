@@ -13,7 +13,7 @@
     border-width: 10px;
     border-radius: 24px;
 
-    box-shadow: 0 5px 5px 2px;
+    box-shadow: 0 5px 5px 2px $dark-light;
 
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
     border-width: 5px;
     border-radius: 16px;
     
-    box-shadow: 0 4px 4px 2px;
+    box-shadow: 0 4px 4px 2px $dark-light;
     
     justify-content: center;
     align-items: center;
@@ -41,7 +41,7 @@
     border-width: 5px;
     border-radius: 16px;
     
-    box-shadow: 0 3px 3px 2px;
+    box-shadow: 0 3px 3px 2px $dark-light;
     
     justify-content: center;
     align-items: center;
@@ -55,7 +55,7 @@
     border-width: 5px;
     border-radius: 16px;
     
-    box-shadow: 0 4px 4px 2px;
+    box-shadow: 0 4px 4px 2px $dark-light;
 
     justify-content: left;
     align-items: center;
@@ -71,7 +71,7 @@
     border-width: 3px;
     border-radius: 16px;
     
-    box-shadow: 0 3px 3px 1px;
+    box-shadow: 0 3px 3px 1px $dark-light;
     
     justify-content: center;
     align-items: center;
@@ -85,7 +85,7 @@
     border-width: 3px;
     border-radius: 16px;
     
-    box-shadow: 0 3px 4px 1px;
+    box-shadow: 0 3px 4px 1px $dark-light;
     
     justify-content: left;
     align-items: center;

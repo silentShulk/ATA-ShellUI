@@ -64,7 +64,7 @@
 //         .timestamps(Timestamps::new().start(*START_TIME));
 
 //     client.set_activity(payload).map_err(|er| DiscordError::ActivitySetting(er))?;
-//    
+//
 //     Ok(())
 // }
 

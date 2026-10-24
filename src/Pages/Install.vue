@@ -2,11 +2,13 @@
 import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import Console from '../Components/Console.vue'
 import { listen, UnlistenFn } from '@tauri-apps/api/event'
+import { open } from '@tauri-apps/plugin-dialog';
 
 // Steps
 enum StepProgress { NotDone, Doing, Done }
 const steps = reactive([StepProgress.Doing, StepProgress.NotDone, StepProgress.NotDone, StepProgress.NotDone])
-const stepsEvents = ref<LogEntry[]>([])
+const stepInputs = ref<InstallationInput[]>([])
+const stepsLogs = ref<InstallationLogEntry[]>([])
 
 // Backend Events
 const EVENTS = [
@@ -15,7 +17,6 @@ const EVENTS = [
 ]
 
 const unlisteners: UnlistenFn[] = []
-
 onMounted(async () => {
   for (const event of EVENTS) {
     unlisteners.push(
@@ -24,7 +25,10 @@ onMounted(async () => {
   }
 })
 const updateLogs = (event: string, message: string) =>
-  stepsEvents.value.push({ event, message })
+  stepsLogs.value.push({ event, message })
+const updateInputs = (title: string, icon: string, input: string) => {
+  stepInputs.value.push({title, icon, input})
+}
 
 onUnmounted(() => {
   unlisteners.forEach(un => un())
@@ -44,6 +48,19 @@ const goTo = (i: number) => {
   steps[i] = i === steps.length - 1 ? StepProgress.Done : StepProgress.Doing
   steps.fill(StepProgress.NotDone, i + 1)
 }
+
+async function getArchive() {
+  const modArchive = await open({
+    multiple: false,
+    directory: false,
+    filters: [
+      { name: '', extensions: ['.zip', '.7z', '.rar'] }
+    ]
+  });
+
+  if (modArchive != null)
+    updateInputs('Folder:', 'folder', modArchive)
+}
 </script>
 
 
@@ -52,6 +69,7 @@ const goTo = (i: number) => {
 <div id="title" class="flex-column align-center">
     <h1 class="ata-h1 ata-font-text">Install</h1>
 </div>
+
 <div id="content" class="flex-row justify-space-between">
     <div id="installation-steps" class="flex-column justify-space-between">
         <template v-for="(title, i) in titles" :key="i">
@@ -77,7 +95,8 @@ const goTo = (i: number) => {
                         <div v-if="i==0" class="flex-column">
                             <h2 class="ata-h2 ata-font-text step-instruction">Extensions: .zip/.7z/.rar</h2>
                             <div class="step-buttons flex-column">
-                                <btn class="ata-btn-medium-small accent-border flex-column">
+                                <btn class="ata-btn-medium-small accent-border flex-column"
+                                @click="getArchive()">
                                     <h3 class="ata-h3 ata-font-icons main">drive_folder_upload</h3>
                                     <h3 class="ata-h3 ata-font-text main">Select</h3>
                                 </btn>
@@ -89,7 +108,7 @@ const goTo = (i: number) => {
                         <div v-else-if="i==1" class="flex-column">
                             <h2 class="ata-h2 ata-font-text step-instruction">Will be used for filtering and uninstalling</h2>
                             <div class="step-buttons flex-column">
-                                INPUT
+                                <input type="text" class="ata-input-text-small ata-h2 accent-border main" placeholder="Name">
                                 <btn class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
                                     <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                                 </btn>
@@ -105,7 +124,7 @@ const goTo = (i: number) => {
         </template>
     </div>
 
-    <Console class="accent-border" :logs="stepsEvents"/>
+    <Console class="accent-border" :inputs="stepInputs" :logs="stepsLogs"/>
 </div>
 </template>
 

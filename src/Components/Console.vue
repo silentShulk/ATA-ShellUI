@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  logs: LogEntry[]
+  inputs: InstallationInput[]
+  logs: InstallationLogEntry[]
 }>()
 </script>
 
