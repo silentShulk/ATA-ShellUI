@@ -49,17 +49,33 @@ const goTo = (i: number) => {
   steps.fill(StepProgress.NotDone, i + 1)
 }
 
+const folder_selected = ref(false)
 async function getArchive() {
   const modArchive = await open({
     multiple: false,
     directory: false,
     filters: [
-      { name: '', extensions: ['.zip', '.7z', '.rar'] }
+      { name: 'Archives', extensions: ['zip', '7z', 'rar'] }
     ]
   });
-
-  if (modArchive != null)
+  if (modArchive != null) {
     updateInputs('Folder:', 'folder', modArchive)
+    folder_selected.value = true
+  }  
+}
+
+const modName = ref('')
+const name_selected = ref(false)
+function onNameInput(e: Event) {
+  modName.value = (e.target as HTMLInputElement).value
+  name_selected.value = false
+}
+function getName() {
+  const name = modName.value.trim()
+  if (name !== '') {
+    updateInputs('Name:', 'label', name)
+    name_selected.value = true
+  }
 }
 </script>
 
@@ -73,7 +89,7 @@ async function getArchive() {
 <div id="content" class="flex-row justify-space-between">
     <div id="installation-steps" class="flex-column justify-space-between">
         <template v-for="(title, i) in titles" :key="i">
-            <btn @click="goTo(i)">
+            <btn @click="if (steps[i] == StepProgress.Done) goTo(i);">
                     <div class="flex-row">
                         <h1 class="ata-h1 ata-font-icons"
                             :class="isActive(i) ? 'accent-tertiary' : 'accent-secondary'">
@@ -96,11 +112,11 @@ async function getArchive() {
                             <h2 class="ata-h2 ata-font-text step-instruction">Extensions: .zip/.7z/.rar</h2>
                             <div class="step-buttons flex-column">
                                 <btn class="ata-btn-medium-small accent-border flex-column"
-                                @click="getArchive()">
+                                @click="getArchive">
                                     <h3 class="ata-h3 ata-font-icons main">drive_folder_upload</h3>
                                     <h3 class="ata-h3 ata-font-text main">Select</h3>
                                 </btn>
-                                <btn class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
+                                <btn v-if="folder_selected" class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
                                     <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                                 </btn>
                             </div>
@@ -108,14 +124,15 @@ async function getArchive() {
                         <div v-else-if="i==1" class="flex-column">
                             <h2 class="ata-h2 ata-font-text step-instruction">Will be used for filtering and uninstalling</h2>
                             <div class="step-buttons flex-column">
-                                <input type="text" class="ata-input-text-small ata-h2 accent-border main" placeholder="Name">
-                                <btn class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
+                                <input type="text" :value="modName" @input="onNameInput" @change="getName"
+                                       class="ata-input-text-small ata-h2 accent-border main" placeholder="Name">
+                                <btn v-if="name_selected" class="ata-btn-small dark-tertiary" @click="goTo(i+1)">
                                     <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                                 </btn>
                             </div>
                         </div>
                         <div v-else-if="i==2" class="flex-column">
-                            <h2 class="ata-h2 ata-font-text step-instruction">Installing ""</h2>
+                            <h2 class="ata-h2 ata-font-text step-instruction">Installing "{{modName}}"</h2>
                             <h2 class="ata-h2 ata-font-text">Wait for the installation process to be complete</h2>
                         </div>
                     </div>
