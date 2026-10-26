@@ -71,7 +71,7 @@ onMounted(async () => {
 #titlebar {
     display: grid;
     grid-template-areas: "page name buttons";
-    grid-template-columns: 0.9fr 1.2fr 0.9fr;
+    grid-template-columns: 0.8fr 1.4fr 0.8fr;
     
     width: 100%;
     height: 32px;
