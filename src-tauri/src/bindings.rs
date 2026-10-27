@@ -1,10 +1,12 @@
+use std::path::PathBuf;
+
+use chrono::Utc;
+
 use crate::features::installation::install_mod_inner;
 use crate::features::misc::launch_automata_inner;
+use crate::features::manage::{list_mods_inner};
 
-#[tauri::command]
-pub fn launch_automata() -> Result<(), String> {
-    launch_automata_inner().map_err(|err| err.to_string())
-}
+use crate::data::mods::{Mod, ModType};
 
 #[tauri::command]
 pub async fn install_mod(
@@ -15,4 +17,23 @@ pub async fn install_mod(
         .await
         .map_err(|err| err.to_string())?
         .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub fn list_mods() -> Vec<Mod> {
+    list_mods_inner(&[
+        Mod::new(
+            String::from("Giacomo"),
+            Vec::from([
+                PathBuf::from("~/Downloads/kirby/teto.cs"),
+                PathBuf::from("~/Documents/kirby/dave.json")]),
+            true,
+            ModType::WorldModels,
+            Utc::now())
+    ])
+}
+
+#[tauri::command]
+pub fn launch_automata() -> Result<(), String> {
+    launch_automata_inner().map_err(|err| err.to_string())
 }
