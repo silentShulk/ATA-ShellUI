@@ -3,7 +3,6 @@ mod features;
 
 mod bindings;
 use bindings::{install_mod, list_mods, launch_automata};
-mod data;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

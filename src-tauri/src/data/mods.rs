@@ -1,8 +1,8 @@
 use std::path::PathBuf;
 use chrono::{DateTime, Utc};
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Hash)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Mod {
     pub name: String,
     pub files: Vec<PathBuf>,
@@ -38,7 +38,7 @@ impl Mod {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug, PartialOrd, Ord, Copy, Hash, EnumIter,)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum ModType {
     DLL,
     Textures,
