@@ -38,7 +38,7 @@ async function launch_automata() {
                 </div>
             </button>
         </div>
-        <button id="launch" class="ata-btn-medium-big dark-secondary" @click="launch_automata()">
+        <button id="launch" class="ata-btn-medium-big dark-secondary-border" @click="launch_automata()">
             <div class="flex-column">
                 <h1 class="ata-h1 ata-font-icons accent-secondary">play_arrow</h1>
                 <h1 class="ata-h1 ata-font-text main">Launch</h1>

@@ -24,13 +24,33 @@
         background-color: $accent-dark;
     }
 }
-.dark-secondary{
+.accent-secondary-border {
+    background-color: $accent-secondary;
+
+    border-style: solid;
+    border-color: $accent-secondary-dark;
+
+    &hover {
+        background-color: $accent-secondary-dark;
+    }
+}
+.accent-tertiary-border {
+    background-color: $accent-tertiary;
+
+    border-style: solid;
+    border-color: $accent-tertiary-dark;
+
+    &hover {
+        background-color: $accent-tertiary-dark;
+    }
+}
+.dark-secondary-border {
     background-color: $dark-light;
 
     border-style: solid;
     border-color: $accent-secondary-dark;
 }
-.dark-tertiary{
+.dark-tertiary-border {
     background-color: $dark-light;
 
     border-style: solid;
