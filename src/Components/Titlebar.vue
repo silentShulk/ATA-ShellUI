@@ -82,6 +82,7 @@ onMounted(async () => {
     padding-left: 10px;
     padding-right: 10px;
 }
+
 #page {
     justify-self: left;
 }
@@ -89,7 +90,6 @@ onMounted(async () => {
     justify-self: center;
     font-style: italic;
     user-select: none;
-    cursor: pointer
 }
 #buttons {
     justify-self: right;

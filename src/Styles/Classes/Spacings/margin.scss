@@ -1,83 +1,17 @@
-.ml-5 {
-    margin-left: 5px;
-}
-.mt-5 {
-    margin-top: 5px;
-}
-.mr-5 {
-    margin-right: 5px;
-}
-.mb-5 {
-    margin-bottom: 5px;
-}
-.mh-5 {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.ml-5 {
-    margin-top: 5px;
-    margin-right: 5px;
-}
+$margin-sizes: 5, 10, 20, 40, 60;
 
-.ml-10 {
-    margin-left: 10px;
-}
-.mt-10 {
-    margin-top: 10px;
-}
-.mr-10 {
-    margin-right: 10px;
-}
-.mb-10 {
-    margin-bottom: 10px;
-}
-.mh-10 {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.ml-10 {
-    margin-top: 10px;
-    margin-right: 10px;
-}
+@each $size in $margin-sizes {
+    .ml-#{$size} { margin-left: #{$size}px; }
+    .mr-#{$size} { margin-right: #{$size}px; }
+    .mt-#{$size} { margin-top: #{$size}px; }
+    .mb-#{$size} { margin-bottom: #{$size}px; }
 
-.ml-20 {
-    margin-left: 20px;
-}
-.mt-20 {
-    margin-top: 20px;
-}
-.mr-20 {
-    margin-right: 20px;
-}
-.mb-20 {
-    margin-bottom: 20px;
-}
-.mh-20 {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.ml-20 {
-    margin-top: 20px;
-    margin-right: 20px;
-}
-
-.ml-40 {
-    margin-left: 40px;
-}
-.mt-40 {
-    margin-top: 40px;
-}
-.mr-40 {
-    margin-right: 40px;
-}
-.mb-40 {
-    margin-bottom: 40px;
-}
-.mh-40 {
-    margin-left: 40px;
-    margin-right: 40px;
-}
-.ml-40 {
-    margin-top: 40px;
-    margin-right: 40px;
+    .mh-#{$size} {
+        margin-left: #{$size}px;
+        margin-right: #{$size}px;
+    }
+    .mv-#{$size} {
+        margin-top: #{$size}px;
+        margin-bottom: #{$size}px;
+    }
 }

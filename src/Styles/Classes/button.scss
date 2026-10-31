@@ -5,6 +5,8 @@
 }
 
 .unstyled-btn {
+    @extend %btn-ata;
+    
     appearance: none;
     background: none;
     border: none;

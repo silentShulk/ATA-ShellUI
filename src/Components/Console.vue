@@ -62,6 +62,8 @@ const props = defineProps<{
 
     justify-content: top;
     align-items: left;
+
+    pointer-events: none;
 }
 
 #initializing {

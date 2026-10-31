@@ -37,16 +37,6 @@ function setNewPageName(path: string) {
 
 
 <style lang="scss">
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-html, body, #app {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-}
-
 #root {
     display: flex;
     flex-direction: column;
@@ -98,4 +88,18 @@ html, body, #app {
 
 .justify-self-center { margin-inline: auto; }
 .align-self-center { align-self: center; }
+
+.flipped-h {
+    transform: scaleX(-1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body, #app {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
 </style>

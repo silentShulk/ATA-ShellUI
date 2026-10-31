@@ -20,7 +20,7 @@
     border-style: solid;
     border-color: $accent-dark;
 
-    &hover {
+    &:hover {
         background-color: $accent-dark;
     }
 }
@@ -30,7 +30,7 @@
     border-style: solid;
     border-color: $accent-secondary-dark;
 
-    &hover {
+    &:hover {
         background-color: $accent-secondary-dark;
     }
 }
@@ -40,7 +40,7 @@
     border-style: solid;
     border-color: $accent-tertiary-dark;
 
-    &hover {
+    &:hover {
         background-color: $accent-tertiary-dark;
     }
 }
@@ -49,10 +49,18 @@
 
     border-style: solid;
     border-color: $accent-secondary-dark;
+
+    &:hover {
+        background-color: $dark;
+    }
 }
 .dark-tertiary-border {
     background-color: $dark-light;
 
     border-style: solid;
     border-color: $accent-tertiary-dark;
+    
+    &:hover {
+        background-color: $dark;
+    }
 }

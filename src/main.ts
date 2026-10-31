@@ -8,8 +8,7 @@ import "./Styles/Classes/color-combos.scss";
 import "./Styles/Classes/Spacings/margin.scss"
 import "./Styles/Classes/Spacings/padding.scss"
 import "./Styles/Classes/Spacings/gap.scss"
-import '@fontsource/material-symbols-rounded'
-import '@fontsource/jetbrains-mono/400.css'
-import '@fontsource/jetbrains-mono/700.css'
+import '@fontsource-variable/material-symbols-rounded'
+import '@fontsource-variable/jetbrains-mono'
 
 createApp(App).use(router).mount("#app");
