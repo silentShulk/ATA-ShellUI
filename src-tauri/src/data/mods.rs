@@ -1,5 +1,6 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use strum::EnumIter;
 use std::path::PathBuf;
 
 #[derive(Serialize, Deserialize, Clone, specta::Type)]
@@ -38,7 +39,7 @@ impl Mod {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, specta::Type)]
+#[derive(Serialize, Deserialize, Clone, specta::Type, EnumIter)]
 pub enum ModType {
     DLL,
     Textures,
@@ -48,7 +49,7 @@ pub enum ModType {
     CutsceneReplacements,
     ReshadePreset,
 }
-impl ModType {
+impl ModType {    
     fn get_id(&self) -> &str {
         match self {
             ModType::DLL => "Dll",

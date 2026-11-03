@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 
 use chrono::Utc;
+use strum::IntoEnumIterator;
 
 use crate::features::installation::install_mod_inner;
 use crate::features::manage::list_mods_inner;
@@ -15,6 +16,12 @@ pub async fn install_mod(app: tauri::AppHandle, answered_name: String) -> Result
         .await
         .map_err(|err| err.to_string())?
         .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn list_types() -> Vec<ModType> {
+    ModType::iter().collect()
 }
 
 #[tauri::command]

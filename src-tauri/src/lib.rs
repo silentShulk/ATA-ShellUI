@@ -2,7 +2,7 @@ mod data;
 mod features;
 
 mod bindings;
-use bindings::{install_mod, launch_automata, list_mods};
+use bindings::{list_types, install_mod, launch_automata, list_mods};
 
 use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, Builder};
@@ -10,7 +10,12 @@ use tauri_specta::{collect_commands, Builder};
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let builder =
-        Builder::new().commands(collect_commands![install_mod, list_mods, launch_automata]);
+        Builder::new().commands(collect_commands![
+            list_types,
+            install_mod,
+            list_mods,
+            launch_automata]);
+    
 
     #[cfg(debug_assertions)]
     builder
