@@ -1,10 +1,10 @@
-interface InstallationInput {
+export interface InstallationInput {
   title: string,
   icon: string,
   input: string
 }
 
-interface InstallationLogEntry {
+export interface InstallationLogEntry {
   event: string,
   message: string
 }

@@ -4,6 +4,7 @@ import { invoke as __TAURI_INVOKE } from "@tauri-apps/api/core";
 
 /** Commands */
 export const commands = {
+	listTypes: () => __TAURI_INVOKE<ModType[]>("list_types"),
 	installMod: (answeredName: string) => typedError<null, string>(__TAURI_INVOKE("install_mod", { answeredName })),
 	listMods: () => __TAURI_INVOKE<Mod[]>("list_mods"),
 	launchAutomata: () => typedError<null, string>(__TAURI_INVOKE("launch_automata")),
