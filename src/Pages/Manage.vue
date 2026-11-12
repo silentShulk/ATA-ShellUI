@@ -66,4 +66,10 @@ onMounted(async () => {
 #mods-data {
     width: 20vw;
 }
+
+.mod-color {
+    @each $color in $mod-colors {
+        
+    }
+}
 </style>

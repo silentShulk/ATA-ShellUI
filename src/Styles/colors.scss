@@ -10,8 +10,8 @@ $accent-secondary-dark: #a54024;
 $accent-tertiary: #6eb2a3;
 $accent-tertiary-dark: #4c9081;
 
-$dark-light: #21253a;
-$dark: #000318;
+$dark: #21253a;
+$light: floralwhite;
 
 $magenta: #87334F;
 $blue: #32526E;
@@ -19,11 +19,11 @@ $green: #475B3D;
 $grey: #87867C;
 
 $mod-colors: (
-  "DLL": $accent,
-  "Textures": $accent-tertiary,
-  "PlayerModels": $accent-secondary,
-  "WeaponModels": $accent-secondary-dark,
-  "WorldModels": $accent-tertiary-dark,
-  "CutsceneReplacements": $accent-dark,
-  "ReshadePreset": $main-dark,
+  "DLL": $grey,
+  "Textures": $blue,
+  "PlayerModels": $light,
+  "WeaponModels": $dark,
+  "WorldModels": $green,
+  "CutsceneReplacements": $purple,
+  "ReshadePreset": $main,
 );
