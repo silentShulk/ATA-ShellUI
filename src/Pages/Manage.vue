@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { commands, type ModType, type Mod } from '../bindings';
-import { getLabelByTipo } from '../Functions/manage'
+import { getLabelByTipo, getIconaByTipo } from '../Functions/manage'
 
 const modTypes = ref<ModType[]>([]);
 onMounted(async () => {
@@ -32,9 +32,10 @@ onMounted(async () => {
             </div>
             <div id="filters-buttons" class="flex-column gr-10">
                 <button v-for="(modType, i) in modTypes" :key="modType"
-                class="ata-h3 ata-font-text ata-btn-small-long" :class="activeFilters[i] ? 'accent-tertiary-border' : 'accent-secondary-border'"
+                class="ata-h3 ata-font-text ata-btn-small-long accent-border gc-10"
                 @click="activeFilters[i]=!activeFilters[i]">
-                    {{ getLabelByTipo(modType) }}
+                    <h3 class="ata-h3 ata-font-icons">{{ getIconaByTipo(modType) }}</h3>
+                    <h3 class="ata-h3 ata-font-text">{{ getLabelByTipo(modType) }}</h3>
                 </button>
             </div>
         </div>
