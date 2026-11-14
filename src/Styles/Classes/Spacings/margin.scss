@@ -14,4 +14,11 @@ $margin-sizes: 5, 10, 20, 40, 60;
         margin-top: #{$size}px;
         margin-bottom: #{$size}px;
     }
+
+    .m-#{$size} {
+        margin-left: 10px;
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
 }

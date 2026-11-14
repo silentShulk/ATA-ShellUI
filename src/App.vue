@@ -26,9 +26,9 @@ function setNewPageName(path: string) {
 
 
 <template>
-<div id="root">
+<div id="root" class="flex-column">
     <Titlebar data-tauri-drag-region :page="page"/>
-    <main id="router">
+    <main id="router" class="flex-column ph-10 pv-10 gv-20">
         <RouterView />
     </main>
 </div>
@@ -38,8 +38,6 @@ function setNewPageName(path: string) {
 
 <style lang="scss">
 #root {
-    display: flex;
-    flex-direction: column;
     height: 100%;
 
     border-radius: 24px;
@@ -47,26 +45,9 @@ function setNewPageName(path: string) {
 }
 
 #router {
-    display: flex;
-    flex-direction: column;
     flex: 1;
-    
-    min-height: 0;
-
-    padding: 10px;
-    gap: 20px;
     
     background-color: $main;
-}
-
-#content {
-    flex: 1;
-    
-    min-height: 0;
-    
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
 }
 
 .flex-column {
@@ -77,17 +58,6 @@ function setNewPageName(path: string) {
     display: flex;
     flex-direction: row
 }
-
-.justify-center { justify-content: center; }
-.align-center { align-items: center; }
-
-.justify-end { justify-content: flex-end; }
-.align-end { align-items: flex-end; }
-
-.justify-space-between { justify-content: space-between; }
-
-.justify-self-center { margin-inline: auto; }
-.align-self-center { align-self: center; }
 
 .flipped-h {
     transform: scaleX(-1);

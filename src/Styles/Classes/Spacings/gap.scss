@@ -1,6 +1,6 @@
 $gap-sizes: 5, 10, 20, 40, 100;
 
 @each $size in $gap-sizes {
-    .gr-#{$size} { row-gap: #{$size}px }
-    .gc-#{$size} { column-gap: #{$size}px }
+    .gv-#{$size} { row-gap: #{$size}px }
+    .gh-#{$size} { column-gap: #{$size}px }
 }

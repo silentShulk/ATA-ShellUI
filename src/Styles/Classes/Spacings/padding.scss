@@ -14,4 +14,11 @@ $padding-sizes: 5, 10, 20, 40, 60;
         padding-bottom: #{$size}px;
         padding-top: #{$size}px;
     }
+
+    .p-#{$size} {
+        padding-left: #{$size}px;
+        padding-top: #{$size}px;
+        padding-right: #{$size}px;
+        padding-bottom: #{$size}px;
+    }
 }

@@ -1,3 +1,5 @@
+@use "../colors.scss" as *;
+
 $shadow-color: $dark;
 
 .ata-shadow-big {
@@ -8,9 +10,6 @@ $shadow-color: $dark;
 }
 .ata-shadow-small {
     box-shadow: 0 3px 3px 2px $shadow-color;
-}
-.ata-shadow-smaller {
-    box-shadow: 0 3px 3px 1px $shadow-color;
 }
 
 .ata-shadow-big-ts {

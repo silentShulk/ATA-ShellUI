@@ -113,7 +113,7 @@ async function installMod() {
                             {{"counter_" + (i+1)}}
                         </h1>
                         <h2 v-if="steps[i] == StepProgress.Doing || steps[steps.length-1] == StepProgress.Done"
-                        class="ata-h2 ata-font-text align-self-center step-title">
+                        class="ata-h2 ata-font-text align-self-center ml-10">
                             {{title}}
                         </h2>
                     </div>
@@ -124,40 +124,39 @@ async function installMod() {
                     :style="{ height: lineHeight(i) }">
                 </div>
                 <Transition name="grow">
-                    <div v-if="i==0 && steps[i] === StepProgress.Doing" class="flex-column align-self-center step-content">
-                        <h2 class="ata-h2 ata-font-text step-instruction">Extensions: .zip/.7z/.rar</h2>
-                        <div class="step-buttons flex-column">
-                            <button class="ata-btn-medium-small ata-shadow-small accent-border flex-column"
+                    <div v-if="i==0 && steps[i] === StepProgress.Doing" class="flex-column align-self-center p-10 step-content">
+                        <h2 class="ata-h2 ata-font-text mb-20">Extensions: .zip/.7z/.rar</h2>
+                        <div class="gv-10 flex-column">
+                            <button class="ata-btn-medium-small accent-border flex-column"
                             @click="getArchive">
                                 <h3 class="ata-h3 ata-font-icons main">drive_folder_upload</h3>
                                 <h3 class="ata-h3 ata-font-text main">Select</h3>
                             </button>
-                            <button v-if="folderSelected" class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="goTo(i+1)">
+                            <button v-if="folderSelected" class="ata-btn-small dark-tertiary-border" @click="goTo(i+1)">
                                 <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                             </button>
                         </div>
                     </div>
-                    <div v-else-if="i==1 && steps[i] === StepProgress.Doing" class="flex-column align-self-center step-content">
-                        <h2 class="ata-h2 ata-font-text step-instruction">Will be used for filtering and uninstalling</h2>
-                        <div class="step-buttons flex-column">
+                    <div v-else-if="i==1 && steps[i] === StepProgress.Doing" class="flex-column align-self-center p-10 step-content">
+                        <h2 class="ata-h2 ata-font-text mb-20">Will be used for filtering and uninstalling</h2>
+                        <div class="gv-10 flex-column">
                             <input type="text" :value="modName" @input="onNameInput" @change="getName"
-                                    class="ata-input-text-small ata-shadow-smaller ata-h2 accent-border main" placeholder="Name">
-                            <button v-if="nameSelected" class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="goTo(i+1)">
+                                    class="ata-input-text-small ata-h2 accent-border main" placeholder="Name">
+                            <button v-if="nameSelected" class="ata-btn-small dark-tertiary-border" @click="goTo(i+1)">
                                 <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                             </button>
                         </div>
                     </div>
-                    <div v-else-if="i==2 && steps[i] === StepProgress.Doing"
-                        class="flex-column align-self-center step-content justify-center">
+                    <div v-else-if="i==2 && steps[i] === StepProgress.Doing" class="flex-column align-self-center p-10 step-content justify-center">
                         <Transition name="swap" mode="out-in">
                             <div v-if="!installationOnGoing" key="confirm">
-                                <h2 class="ata-h2 ata-font-text step-instruction">Install "{{modName}}"?</h2>
-                                <button class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="installationOnGoing = true; installMod()">
+                                <h2 class="ata-h2 ata-font-text mb-20">Install "{{modName}}"?</h2>
+                                <button class="ata-btn-small dark-tertiary-border" @click="installationOnGoing = true; installMod()">
                                     <h3 class="ata-h3 ata-font-icons accent-tertiary">install_desktop</h3>
                                 </button>
                             </div>
                             <div v-else key="installing">
-                                <h2 class="ata-h2 ata-font-text step-instruction">Installing "{{modName}}"</h2>
+                                <h2 class="ata-h2 ata-font-text">Installing "{{modName}}"</h2>
                                 <h2 class="ata-h2 ata-font-text">Wait for the installation process to be complete</h2>
                             </div>
                         </Transition>
@@ -185,24 +184,13 @@ async function installMod() {
     transition: height 0.3s ease;
 }
 
-.step-title {
-    margin-left: 5px;
-}
 .step-content {
     width: 491px;
     height: 225px;
 
-    padding: 10px;
-    
     border: 2px solid $dark;
     border-left: none;
     border-radius: 0 16px 16px 0;
-}
-.step-instruction {
-    margin-bottom: 20px;
-}
-.step-buttons {
-    gap: 10px;
 }
 
 .grow-enter-active{

@@ -1,0 +1,88 @@
+@use "../Classes";
+
+%btn-ata {
+    cursor: pointer;
+}
+
+.unstyled-btn {
+    @extend %btn-ata;
+    
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.ata-btn-big {
+    @extend %btn-ata;
+    @extend .ata-border-big;
+    @extend .ata-shadow-big;
+    @extend .justify-center, .align-center;
+    
+    width: 560px;
+    height: 270px;
+}
+.ata-btn-medium-big {
+    @extend %btn-ata;
+
+    width: 270px;
+    height: 135px;
+    
+    @extend .ata-border-medium;
+    @extend .ata-shadow-medium;
+    @extend .justify-center, .align-center;
+}
+.ata-btn-medium-small {
+    @extend %btn-ata;
+    
+    width: 160px;
+    height: 90px;
+
+    @extend .ata-border-medium;
+    @extend .ata-shadow-medium;
+    @extend .justify-center, .align-center;
+}
+.ata-btn-medium-long {
+    @extend %btn-ata;
+
+    width: 270px;
+    height: 90px;
+
+    @extend .ata-border-medium;
+    @extend .ata-shadow-medium;
+    @extend .justify-start, .align-center;
+
+    @extend .pl-10;
+}
+.ata-btn-small {
+    @extend %btn-ata;
+
+    width: 80px;
+    height: 45px;
+
+    @extend .ata-border-small;
+    @extend .ata-shadow-small;
+    @extend .justify-center, .align-center;
+}
+.ata-btn-small-long {
+    @extend %btn-ata;
+    
+    width: 160px;
+    height: 45px;
+
+    @extend .ata-border-medium;
+    @extend .ata-shadow-medium;
+    @extend .justify-start, .align-center;
+
+    @extend .pl-5;
+}
+
+.ata-btn-titlebar {
+    @extend %btn-ata;
+
+    width: 24px;
+    height: 24px;
+
+    @extend .ata-border-medium;
+    @extend .justify-start, .align-center;
+}
