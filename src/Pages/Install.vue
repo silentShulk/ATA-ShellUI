@@ -127,12 +127,12 @@ async function installMod() {
                     <div v-if="i==0 && steps[i] === StepProgress.Doing" class="flex-column align-self-center step-content">
                         <h2 class="ata-h2 ata-font-text step-instruction">Extensions: .zip/.7z/.rar</h2>
                         <div class="step-buttons flex-column">
-                            <button class="ata-btn-medium-small accent-border flex-column"
+                            <button class="ata-btn-medium-small ata-shadow-small accent-border flex-column"
                             @click="getArchive">
                                 <h3 class="ata-h3 ata-font-icons main">drive_folder_upload</h3>
                                 <h3 class="ata-h3 ata-font-text main">Select</h3>
                             </button>
-                            <button v-if="folderSelected" class="ata-btn-small dark-tertiary-border" @click="goTo(i+1)">
+                            <button v-if="folderSelected" class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="goTo(i+1)">
                                 <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                             </button>
                         </div>
@@ -141,8 +141,8 @@ async function installMod() {
                         <h2 class="ata-h2 ata-font-text step-instruction">Will be used for filtering and uninstalling</h2>
                         <div class="step-buttons flex-column">
                             <input type="text" :value="modName" @input="onNameInput" @change="getName"
-                                    class="ata-input-text-small ata-h2 accent-border main" placeholder="Name">
-                            <button v-if="nameSelected" class="ata-btn-small dark-tertiary-border" @click="goTo(i+1)">
+                                    class="ata-input-text-small ata-shadow-smaller ata-h2 accent-border main" placeholder="Name">
+                            <button v-if="nameSelected" class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="goTo(i+1)">
                                 <h3 class="ata-h3 ata-font-icons accent-tertiary">check</h3>
                             </button>
                         </div>
@@ -152,7 +152,7 @@ async function installMod() {
                         <Transition name="swap" mode="out-in">
                             <div v-if="!installationOnGoing" key="confirm">
                                 <h2 class="ata-h2 ata-font-text step-instruction">Install "{{modName}}"?</h2>
-                                <button class="ata-btn-small dark-tertiary-border" @click="installationOnGoing = true; installMod()">
+                                <button class="ata-btn-small ata-shadow-smaller dark-tertiary-border" @click="installationOnGoing = true; installMod()">
                                     <h3 class="ata-h3 ata-font-icons accent-tertiary">install_desktop</h3>
                                 </button>
                             </div>

@@ -13,32 +13,32 @@ async function launch_automata() {
     </div>
     <div id="content">
         <div id="features-grid">
-            <button id="install" class="ata-btn-big accent-border" @click="$router.push('/install')">
+            <button id="install" class="ata-btn-big ata-shadow-big accent-border" @click="$router.push('/install')">
                 <div class="flex-column centered-h main">
                     <h1 class="ata-h1 ata-font-icons">install_desktop</h1>
                     <h1 class="ata-h1 ata-font-text">Install</h1>
                 </div>
             </button>
-            <button id="manage" class="ata-btn-big accent-border" @click="$router.push('/manage')">
+            <button id="manage" class="ata-btn-big ata-shadow-big accent-border" @click="$router.push('/manage')">
                 <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">database</h1>
                     <h1 class="ata-h1 ata-font-text">Manage</h1>
                 </div>
             </button>
-            <button id="uninstall" class="ata-btn-big accent-border" @click="$router.push('/uninstall')">
+            <button id="uninstall" class="ata-btn-big ata-shadow-big accent-border" @click="$router.push('/uninstall')">
                 <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">delete</h1>
                     <h1 class="ata-h1 ata-font-text">Uninstall</h1>
                 </div>
             </button>
-            <button id="settings" class="ata-btn-big accent-border" @click="$router.push('/settings')">
+            <button id="settings" class="ata-btn-big ata-shadow-big accent-border" @click="$router.push('/settings')">
                 <div class="flex-column main">
                     <h1 class="ata-h1 ata-font-icons">settings</h1>
                     <h1 class="ata-h1 ata-font-text">Settings</h1>
                 </div>
             </button>
         </div>
-        <button id="launch" class="ata-btn-medium-big dark-secondary-border" @click="launch_automata()">
+        <button id="launch" class="ata-btn-medium-big ata-shadow-medium dark-secondary-border" @click="launch_automata()">
             <div class="flex-column">
                 <h1 class="ata-h1 ata-font-icons accent-secondary">play_arrow</h1>
                 <h1 class="ata-h1 ata-font-text main">Launch</h1>

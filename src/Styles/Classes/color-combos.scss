@@ -11,7 +11,7 @@
     color: $accent-tertiary;
 }
 .dark {
-    color: $dark-light;
+    color: $dark;
 }
 
 .accent-border {
@@ -45,7 +45,7 @@
     }
 }
 .dark-secondary-border {
-    background-color: $dark-light;
+    background-color: $dark;
 
     border-style: solid;
     border-color: $accent-secondary-dark;
@@ -55,7 +55,7 @@
     }
 }
 .dark-tertiary-border {
-    background-color: $dark-light;
+    background-color: $dark;
 
     border-style: solid;
     border-color: $accent-tertiary-dark;

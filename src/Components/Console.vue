@@ -8,7 +8,7 @@ const props = defineProps<{
 
 
 <template>
-<div id="console">
+<div id="console" class="flex-column pt-10 ph-20 gr-20 ata-shadow-big">
     <div id="initializing" class="flex-row">
         <h1 class="ata-h1 ata-font-icons main">list</h1>
         <h1 class="ata-h1 ata-font-text main">Initializing...</h1>
@@ -43,22 +43,11 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 #console {
-    display: flex;
-    flex-direction: column;
-    
     width: 600px;
     height: 615px;
 
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-
-    gap: 20px;
-
     border-width: 10px;
     border-radius: 24px;
-
-    box-shadow: 0 5px 5px 2px;
 
     justify-content: top;
     align-items: left;
