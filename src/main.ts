@@ -12,6 +12,7 @@ import "./Styles/Classes/Spacings/margin.scss";
 import "./Styles/Classes/Spacings/padding.scss";
 import "./Styles/Components/button.scss";
 import "./Styles/Components/input-text.scss";
+import "./Styles/Components/option.scss";
 import '@fontsource-variable/material-symbols-rounded'
 import '@fontsource-variable/jetbrains-mono'
 

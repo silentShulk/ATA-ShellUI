@@ -1,4 +1,4 @@
-$margin-sizes: 5, 10, 20, 40, 60;
+$margin-sizes: 2, 5, 10, 20, 40, 60;
 
 @each $size in $margin-sizes {
     .ml-#{$size} { margin-left: #{$size}px; }

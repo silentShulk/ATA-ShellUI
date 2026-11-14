@@ -1,19 +1,18 @@
 @use "../colors.scss" as *;
 
-.main {
-    color: $main;
+@each $name, $value in $colors {
+  .#{$name} { color: $value; }
 }
-.accent {
-    color: $accent;
+@each $name, $value in $colors {
+  .bg-#{$name} { background: $value; }
 }
-.accent-secondary {
-    color: $accent-secondary;
+@each $name, $value in $colors {
+  .bd-#{$name} { border-color: $value; }
 }
-.accent-tertiary {
-    color: $accent-tertiary;
-}
-.dark {
-    color: $dark;
+:root {
+  @each $name, $value in $colors {
+    --#{$name}: #{$value};
+  }
 }
 
 .accent-border {

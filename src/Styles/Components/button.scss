@@ -14,13 +14,15 @@
 }
 
 .ata-btn-big {
-    @extend %btn-ata;
-    @extend .ata-border-big;
-    @extend .ata-shadow-big;
-    @extend .justify-center, .align-center;
+    @extend %btn-ata;    
     
     width: 560px;
     height: 270px;
+    
+    @extend .ata-border-big;
+    @extend .ata-radius-big;
+    @extend .ata-shadow-big;
+    @extend .justify-center, .align-center;
 }
 .ata-btn-medium-big {
     @extend %btn-ata;
@@ -29,6 +31,7 @@
     height: 135px;
     
     @extend .ata-border-medium;
+    @extend .ata-radius-medium;
     @extend .ata-shadow-medium;
     @extend .justify-center, .align-center;
 }
@@ -38,7 +41,8 @@
     width: 160px;
     height: 90px;
 
-    @extend .ata-border-medium;
+    @extend .ata-border-medium;   
+    @extend .ata-radius-medium;
     @extend .ata-shadow-medium;
     @extend .justify-center, .align-center;
 }
@@ -49,6 +53,7 @@
     height: 90px;
 
     @extend .ata-border-medium;
+    @extend .ata-radius-medium;
     @extend .ata-shadow-medium;
     @extend .justify-start, .align-center;
 
@@ -61,6 +66,7 @@
     height: 45px;
 
     @extend .ata-border-small;
+    @extend .ata-radius-small;
     @extend .ata-shadow-small;
     @extend .justify-center, .align-center;
 }
@@ -70,11 +76,12 @@
     width: 160px;
     height: 45px;
 
-    @extend .ata-border-medium;
-    @extend .ata-shadow-medium;
+    @extend .ata-border-small;
+    @extend .ata-radius-small;
+    @extend .ata-shadow-small;
     @extend .justify-start, .align-center;
 
-    @extend .pl-5;
+    @extend .pl-10;
 }
 
 .ata-btn-titlebar {
@@ -84,5 +91,6 @@
     height: 24px;
 
     @extend .ata-border-medium;
+    @extend .ata-radius-medium;
     @extend .justify-start, .align-center;
 }

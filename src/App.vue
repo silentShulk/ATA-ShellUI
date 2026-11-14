@@ -28,7 +28,7 @@ function setNewPageName(path: string) {
 <template>
 <div id="root" class="flex-column">
     <Titlebar data-tauri-drag-region :page="page"/>
-    <main id="router" class="flex-column ph-10 pv-10 gv-20">
+    <main id="router" class="flex-column p-10 gv-20">
         <RouterView />
     </main>
 </div>
@@ -48,6 +48,10 @@ function setNewPageName(path: string) {
     flex: 1;
     
     background-color: $main;
+}
+
+#content {
+    flex: 1;
 }
 
 .flex-column {

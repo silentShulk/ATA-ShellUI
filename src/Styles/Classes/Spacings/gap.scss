@@ -1,4 +1,4 @@
-$gap-sizes: 5, 10, 20, 40, 100;
+$gap-sizes: 2, 5, 10, 20, 40, 100;
 
 @each $size in $gap-sizes {
     .gv-#{$size} { row-gap: #{$size}px }

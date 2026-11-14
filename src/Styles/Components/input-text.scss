@@ -1,18 +1,18 @@
+@use "../Classes";
+
 %input-text-ata {
     display: flex;
-    
-    justify-content: left;
-    align-items: center;
 
-    padding: 10px;
+    @extend .justify-center;
+    @extend .align-start;
 
-    outline: none;
+    @extend .pl-10;
 }
 %input-text-ata::placeholder {
-    color: floralwhite;
+    color: $light;
     opacity: 0.5;
 
-    transition: opacity 0.2s;
+    transition: opacity 0.25s;
 }
 
 .ata-input-text-big {
@@ -21,24 +21,39 @@
     width: 480px;
     height: 90px;
 
-    border-width: 10px;
-    border-radius: 24px;
+    @extend .ata-border-big;
+    @extend .ata-radius-big;
+    @extend .ata-shadow-big;
 }
+
 .ata-input-text-medium {
     @extend %input-text-ata;
     
     width: 320px;
-    height: 67px;
+    height: 64px;
 
-    border-width: 5px;
-    border-radius: 16px;
+    @extend .ata-border-medium;
+    @extend .ata-radius-medium;
+    @extend .ata-shadow-medium;
 }
+
 .ata-input-text-small {
     @extend %input-text-ata;
     
     width: 160px;
     height: 45px;
 
-    border-width: 3px;
-    border-radius: 16px;
+    @extend .ata-border-small;   
+    @extend .ata-radius-small;
+    @extend .ata-shadow-small;
+}
+.ata-input-text-small-long {
+    @extend %input-text-ata;
+
+    width: 240px;
+    height: 45px;
+
+    @extend .ata-border-small;
+    @extend .ata-radius-small;
+    @extend .ata-shadow-small;
 }

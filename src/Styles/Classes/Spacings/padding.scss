@@ -1,4 +1,4 @@
-$padding-sizes: 5, 10, 20, 40, 60;
+$padding-sizes: 2, 5, 10, 20, 40, 60;
 
 @each $size in $padding-sizes {
     .pl-#{$size} { padding-left: #{$size}px; }

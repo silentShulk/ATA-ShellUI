@@ -1,0 +1,22 @@
+@use "../Classes";
+
+.ata-option-big {
+    width: 520px;
+    height: 90px;
+
+    @extend .ata-border-small;
+}
+
+.ata-option-medium {
+    width: 350px;
+    height: 64px;
+
+    @extend .ata-border-small;
+}
+
+.ata-option-small {
+    width: 180px;
+    height: 45px;
+
+    @extend .ata-border-small;
+}

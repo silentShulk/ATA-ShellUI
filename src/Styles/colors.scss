@@ -18,12 +18,19 @@ $blue: #32526E;
 $green: #475B3D;
 $grey: #87867C;
 
-$mod-colors: (
-  "DLL": $grey,
-  "Textures": $blue,
-  "PlayerModels": $light,
-  "WeaponModels": $dark,
-  "WorldModels": $green,
-  "CutsceneReplacements": $magenta,
-  "ReshadePreset": $main,
+$colors: (
+  "main": $main,
+  "main-dark": $main-dark,
+  "accent": $accent,
+  "accent-dark": $accent-dark,
+  "accent-secondary": $accent-secondary,
+  "accent-secondary-dark": $accent-secondary-dark,
+  "accent-tertiary": $accent-tertiary,
+  "accent-tertiary-dark": $accent-tertiary-dark,
+  "dark": $dark,
+  "light": $light,
+  "magenta": $magenta,
+  "blue": $blue,
+  "green": $green,
+  "grey": $grey
 );

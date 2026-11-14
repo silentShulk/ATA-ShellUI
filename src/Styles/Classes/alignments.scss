@@ -1,13 +1,17 @@
 .justify-center { justify-content: center; }
 .align-center { align-items: center; }
 
+.justify-start { justify-content: flex-start; }
+.align-start { align-items: flex-start; }
 .justify-end { justify-content: flex-end; }
 .align-end { align-items: flex-end; }
 
-.justify-start { justify-content: flex-start; }
-.align-start { align-items: flex-start; }
-
-.justify-space-between { justify-content: space-between; }
-
 .justify-self-center { margin-inline: auto; }
 .align-self-center { align-self: center; }
+
+.justify-self-start { margin-inline: auto; }
+.align-self-start { align-self: flex-start; }
+.justify-self-end   { margin-inline-start: auto; }
+.align-self-end { align-self: flex-end; }
+
+.justify-space-between { justify-content: space-between; }
