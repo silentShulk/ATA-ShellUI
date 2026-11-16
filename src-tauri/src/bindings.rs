@@ -136,43 +136,6 @@ pub fn list_mods() -> Vec<Mod> {
         ModType::ReshadePreset,
         Utc::now(),
         ),
-        
-        Mod::new(String::from("Hola Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::WeaponModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Bonjour Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::WorldModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Hallo Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::CutsceneReplacements,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Olà Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::ReshadePreset,
-        Utc::now(),
-        ),
     ])
 }
 

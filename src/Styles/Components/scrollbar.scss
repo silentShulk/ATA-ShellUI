@@ -1,0 +1,19 @@
+@use "../colors.scss" as *;
+
+$scrollbar-w: 12px;
+
+.ata-scrollbar {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable both-edges;
+
+    &::-webkit-scrollbar {
+        width: $scrollbar-w;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $accent;
+        border-radius: 999px;
+        border: 4px solid transparent;   // makes the visible thumb thinner
+        background-clip: padding-box;
+    }
+}

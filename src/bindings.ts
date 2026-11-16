@@ -10,6 +10,9 @@ export const commands = {
 	launchAutomata: () => typedError<null, string>(__TAURI_INVOKE("launch_automata")),
 };
 
+/* Constants */
+export const MOD_TYPES = ["DLL","Textures","PlayerModels","WeaponModels","WorldModels","CutsceneReplacements","ReshadePreset"] as const;
+
 /* Types */
 export type Mod = {
 	name: string,
