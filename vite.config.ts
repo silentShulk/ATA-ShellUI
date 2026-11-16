@@ -16,11 +16,11 @@ export default defineConfig(() => ({
   css: {
     preprocessorOptions: {
       scss: {
-        // vars only → every scss/vue style block get $main etc.
+        loadPaths: ["src/Styles"],
         additionalData: (content: string, filename: string) =>
-          filename.replace(/\\/g, "/") === colors
-            ? content
-            : `@use "${colors}" as *;\n${content}`,
+          filename.split("?")[0].endsWith(".vue")
+            ? `@use "colors" as *;\n${content}`
+            : content,
       },
     },
   },
