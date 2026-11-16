@@ -119,7 +119,7 @@ const orderedMods = computed(() => {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    margin-top: 20px;   // replaces the 20px of pt-20, so cards stay put
+    margin-top: 20px;
 
     &::-webkit-scrollbar-track {
         background: transparent;

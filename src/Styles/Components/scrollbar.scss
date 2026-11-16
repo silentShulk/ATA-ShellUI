@@ -4,7 +4,7 @@ $scrollbar-w: 12px;
 
 .ata-scrollbar {
     scroll-behavior: smooth;
-    scrollbar-gutter: stable both-edges;
+    padding-left: $scrollbar-w;
 
     &::-webkit-scrollbar {
         width: $scrollbar-w;
@@ -13,7 +13,7 @@ $scrollbar-w: 12px;
     &::-webkit-scrollbar-thumb {
         background: $accent;
         border-radius: 999px;
-        border: 4px solid transparent;   // makes the visible thumb thinner
+        border: 4px solid transparent;
         background-clip: padding-box;
     }
 }
