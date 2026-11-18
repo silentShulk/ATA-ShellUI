@@ -1,0 +1,3 @@
+[submodule "src-tauri/backend"]
+	path = src-tauri/backend
+	url = https://github.com/silentShulk/Accord-Timeline-Alterer.git
