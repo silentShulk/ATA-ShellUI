@@ -1,146 +1,53 @@
-use std::path::PathBuf;
+use std::{path::PathBuf, sync::Mutex};
+use tauri::{AppHandle, State, Emitter};
 
-use chrono::Utc;
-use strum::IntoEnumIterator;
-
-use crate::features::installation::install_mod_inner;
-use crate::features::manage::list_mods_inner;
-use crate::features::misc::launch_automata_inner;
-
-use crate::data::mods::{Mod, ModType};
+use ata::{
+    features::installation::install_mod,
+    data::{
+        mods::{Mods, Mod},
+        settings::Settings
+    }
+};
 
 #[tauri::command]
 #[specta::specta]
-pub async fn install_mod(app: tauri::AppHandle, answered_name: String) -> Result<(), String> {
-    tauri::async_runtime::spawn_blocking(move || install_mod_inner(app, &answered_name))
-        .await
-        .map_err(|err| err.to_string())?
-        .map_err(|err| err.to_string())
+pub fn install_mod_command(
+    compressed_mod_folder_path: PathBuf,
+    answered_name: String,
+    forced_overwrite: bool,
+    settings: State<Mutex<Settings>>,
+    data: State<Mutex<Mods>>,
+    app: AppHandle
+) -> Result<Mod, String> {
+    let settings = settings.lock().unwrap();
+    let mut data = data.lock().unwrap();
+
+    install_mod(
+        &compressed_mod_folder_path,
+        &answered_name,
+        forced_overwrite,
+        &settings,
+        &mut data,
+    ).map_err(|e| {
+        app.emit("error", e.to_string()).unwrap();
+        e.to_string()
+    })
 }
 
 #[tauri::command]
 #[specta::specta]
-pub fn list_types() -> Vec<ModType> {
-    ModType::iter().collect()
+pub fn list_mods_command() -> Vec<Mod> {
+    Vec::new().into()
 }
 
 #[tauri::command]
 #[specta::specta]
-pub fn list_mods() -> Vec<Mod> {
-    list_mods_inner(&[
-        Mod::new(String::from("Ciao Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::DLL,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Hi Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::PlayerModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Hola Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::WeaponModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Bonjour Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::WorldModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Hallo Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::CutsceneReplacements,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Olà Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::ReshadePreset,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Hoi Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::DLL,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Привет Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::PlayerModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("こんにちは Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::WeaponModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("你好 Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::WorldModels,
-        Utc::now(),
-        ),
-        Mod::new(String::from("مرحبا Magi"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        true,
-        ModType::CutsceneReplacements,
-        Utc::now(),
-        ),
-        Mod::new(String::from("Γειά σου"),
-        Vec::from([
-            PathBuf::from("~/Downloads/kirby/teto.cs"),
-            PathBuf::from("~/Documents/kirby/dave.json"),
-        ]),
-        false,
-        ModType::ReshadePreset,
-        Utc::now(),
-        ),
-    ])
+pub fn launch_automata_command() -> Result<(), String> {
+    tauri_plugin_opener::open_url("steam://rungameid/524220", None::<&str>).map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 #[specta::specta]
-pub fn launch_automata() -> Result<(), String> {
-    launch_automata_inner().map_err(|err| err.to_string())
+pub fn load_data_command() -> Result<Mods, String> {
+    Mods::load_data().map_err(|err| err.to_string())
 }

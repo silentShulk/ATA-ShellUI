@@ -59,17 +59,19 @@ const goTo = (i: number) => {
   }
 }
 
+const modArchive = ref<string>("")
 const folderSelected = ref(false)
 async function getArchive() {
-  const modArchive = await open({
+  const userSelection = await open({
     multiple: false,
     directory: false,
     filters: [
       { name: 'Archives', extensions: ['zip', '7z', 'rar'] }
     ]
   });
-  if (modArchive != null) {
-    updateInputs('Folder:', 'folder', modArchive)
+  if (userSelection != null) {
+    modArchive.value = userSelection
+    updateInputs('Folder:', 'folder', modArchive.value)
     folderSelected.value = true
   }  
 }
