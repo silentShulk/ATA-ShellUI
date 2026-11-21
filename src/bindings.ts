@@ -4,26 +4,72 @@ import { invoke as __TAURI_INVOKE } from "@tauri-apps/api/core";
 
 /** Commands */
 export const commands = {
-	listTypes: () => __TAURI_INVOKE<ModType[]>("list_types"),
-	installMod: (answeredName: string) => typedError<null, string>(__TAURI_INVOKE("install_mod", { answeredName })),
-	listMods: () => __TAURI_INVOKE<Mod[]>("list_mods"),
-	launchAutomata: () => typedError<null, string>(__TAURI_INVOKE("launch_automata")),
+	installModCommand: (compressedModFolderPath: string, answeredName: string, forcedOverwrite: boolean) => typedError<Mod, string>(__TAURI_INVOKE("install_mod_command", { compressedModFolderPath, answeredName, forcedOverwrite })),
+	listModsCommand: () => __TAURI_INVOKE<Mod[]>("list_mods_command"),
+	launchAutomataCommand: () => typedError<null, string>(__TAURI_INVOKE("launch_automata_command")),
 };
 
 /* Constants */
 export const MOD_TYPES = ["DLL","Textures","PlayerModels","WeaponModels","WorldModels","CutsceneReplacements","ReshadePreset"] as const;
 
 /* Types */
+/**  Everything ATA needs to track about an installed mod */
 export type Mod = {
+	/**  Name of the mod given by the user */
 	name: string,
+	/**  Individual files belonging to the mod (full paths, not the containing folder) */
 	files: string[],
+	/**  Whether the mod is currently active in the game folder */
 	enabled: boolean,
+	/**  Categorises what kind of assets the mod replaces */
 	mod_type: ModType,
+	/**  UTC timestamp of when the mod was installed */
 	install_date: string,
+	/**  Unique identifier derived from the mod's name, type, and install date */
 	uid: string,
 };
 
-export type ModType = "DLL" | "Textures" | "PlayerModels" | "WeaponModels" | "WorldModels" | "CutsceneReplacements" | "ReshadePreset";
+/**
+ *  Mod types supported by ATA
+ * 
+ *  Mod types not currently supported are not generic, but mod-specific (like NAIOM)
+ */
+export type ModType = 
+/**
+ *  `DLL` mods are unique mods
+ *  They contain **dll** files and other files
+ */
+"DLL" | 
+/**
+ *  `Textures` mods contain textures for models
+ *  They contain **dds** files
+ */
+"Textures" | 
+/**
+ *  `Player models` mods contain 3D models for 2B, 9S, A2
+ *  They contain **dtt/dat** files
+ */
+"PlayerModels" | 
+/**
+ *  `Weapon models` mods contain 3D models for weapons
+ *  They contain **dtt/dat** files
+ */
+"WeaponModels" | 
+/**
+ *  `World models` mods contain 3D models for world objects
+ *  They contain **dtt/dat** files
+ */
+"WorldModels" | 
+/**
+ *  `Cutscene replacements` mods contain replacements for the game's cutscenes
+ *  They contain **usm** files
+ */
+"CutsceneReplacements" | 
+/**
+ *  `Reshade presets` mods contain shader presets
+ *  They contain **ini** files and other files
+ */
+"ReshadePreset";
 
 /* Tauri Specta runtime */
 async function typedError<T, E>(result: Promise<T>): Promise<{ status: "ok"; data: T } | { status: "error"; error: E }> {

@@ -45,9 +45,3 @@ pub fn list_mods_command() -> Vec<Mod> {
 pub fn launch_automata_command() -> Result<(), String> {
     tauri_plugin_opener::open_url("steam://rungameid/524220", None::<&str>).map_err(|err| err.to_string())
 }
-
-#[tauri::command]
-#[specta::specta]
-pub fn load_data_command() -> Result<Mods, String> {
-    Mods::load_data().map_err(|err| err.to_string())
-}
