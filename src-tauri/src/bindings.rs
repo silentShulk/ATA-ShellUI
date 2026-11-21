@@ -2,7 +2,10 @@ use std::{path::PathBuf, sync::Mutex};
 use tauri::{AppHandle, State, Emitter};
 
 use ata::{
-    features::installation::install_mod,
+    features::{
+        installation::install_mod,
+        mod_managing::list_mods
+    },
     data::{
         mods::{Mods, Mod},
         settings::Settings
@@ -16,18 +19,18 @@ pub fn install_mod_command(
     answered_name: String,
     forced_overwrite: bool,
     settings: State<Mutex<Settings>>,
-    data: State<Mutex<Mods>>,
+    mods: State<Mutex<Mods>>,
     app: AppHandle
 ) -> Result<Mod, String> {
     let settings = settings.lock().unwrap();
-    let mut data = data.lock().unwrap();
+    let mut mods = mods.lock().unwrap();
 
     install_mod(
         &compressed_mod_folder_path,
         &answered_name,
         forced_overwrite,
         &settings,
-        &mut data,
+        &mut mods,
     ).map_err(|e| {
         app.emit("error", e.to_string()).unwrap();
         e.to_string()
@@ -36,8 +39,8 @@ pub fn install_mod_command(
 
 #[tauri::command]
 #[specta::specta]
-pub fn list_mods_command() -> Vec<Mod> {
-    Vec::new().into()
+pub fn list_mods_command(mods: State<Mods>, settings: State<Settings>) -> Vec<Mod> {
+    list_mods(&settings.sorting_order, &mods.mods)
 }
 
 #[tauri::command]
