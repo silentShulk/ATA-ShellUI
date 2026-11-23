@@ -5,7 +5,11 @@ import { invoke as __TAURI_INVOKE } from "@tauri-apps/api/core";
 /** Commands */
 export const commands = {
 	installModCommand: (modArchivePath: string, answeredName: string, overwriteFlag: boolean) => typedError<Mod, string>(__TAURI_INVOKE("install_mod_command", { modArchivePath, answeredName, overwriteFlag })),
+	uninstallModCommand: (modName: string) => typedError<Mod, string>(__TAURI_INVOKE("uninstall_mod_command", { modName })),
+	toggleModCommand: (modName: string) => typedError<Mod, string>(__TAURI_INVOKE("toggle_mod_command", { modName })),
 	listModsCommand: () => __TAURI_INVOKE<Mod[]>("list_mods_command"),
+	updateSettingCommand: (setting: string, value: string) => typedError<Settings_Serialize, string>(__TAURI_INVOKE("update_setting_command", { setting, value })),
+	listSettingsCommand: () => __TAURI_INVOKE<Mod[]>("list_settings_command"),
 	launchAutomataCommand: () => typedError<null, string>(__TAURI_INVOKE("launch_automata_command")),
 };
 
@@ -13,6 +17,13 @@ export const commands = {
 export const MOD_TYPES = ["DLL","Textures","PlayerModels","WeaponModels","WorldModels","CutsceneReplacements","ReshadePreset"] as const;
 
 /* Types */
+/**  What ATA does when a mod file would overwrite a file already present in the game folder */
+export type ConflictResolution = 
+/**  Prompt the user to decide for each conflicting file (default) */
+"Warn" | 
+/**  Silently overwrite the existing file with the mod's version */
+"Overwrite";
+
 /**  Everything ATA needs to track about an installed mod */
 export type Mod = {
 	/**  Name of the mod given by the user */
@@ -70,6 +81,69 @@ export type ModType =
  *  They contain **ini** files and other files
  */
 "ReshadePreset";
+
+/**  The color palette applied to the UI */
+export type Palette = 
+/**  Default palette, inspired by NieR: Automata */
+"Automata" | 
+/**  Alternative palette, inspired by NieR: Replicant */
+"Replicant";
+
+/**  All user-configurable settings for ATA */
+export type Settings = Settings_Serialize | Settings_Deserialize;
+
+/**  All user-configurable settings for ATA */
+export type Settings_Deserialize = {
+	/**  Visual layout theme applied to the UI */
+	style: string,
+	/**  Color palette applied to the UI */
+	palette: Palette,
+	/**  Order in which mods are shown in the list view */
+	sortingOrder: SortingOrder,
+	/**  How to handle file conflicts when installing a mod */
+	filesConflictResolution: ConflictResolution,
+	/**  Whether to keep the extracted temporary folder after a successful installation */
+	keepExtractedFolders: boolean,
+	/**  Filesystem path where extracted temporary folders are stored */
+	extractedFoldersLocation: string,
+	/**  Absolute path to the game's installation folder */
+	gamePath: string,
+	/**  Discord Rich Presence application ID; empty string means Rich Presence is disabled */
+	discordRichPresence: string,
+};
+
+/**  All user-configurable settings for ATA */
+export type Settings_Serialize = {
+	/**  Visual layout theme applied to the UI */
+	style: string,
+	/**  Color palette applied to the UI */
+	palette: Palette,
+	/**  Order in which mods are shown in the list view */
+	sortingOrder: SortingOrder,
+	/**  How to handle file conflicts when installing a mod */
+	filesConflictResolution: ConflictResolution,
+	/**  Whether to keep the extracted temporary folder after a successful installation */
+	keepExtractedFolders: boolean,
+	/**  Filesystem path where extracted temporary folders are stored */
+	extractedFoldersLocation: string,
+	/**  Absolute path to the game's installation folder */
+	gamePath: string,
+	/**  Discord Rich Presence application ID; empty string means Rich Presence is disabled */
+	discordRichPresence: string,
+};
+
+/**  The order in which installed mods are displayed in the list view */
+export type SortingOrder = 
+/**  Group mods by their [`crate::data::mods::ModType`] (default) */
+"ModType" | 
+/**  Sort mods from newest to oldest install date */
+"InstallDate" | 
+/**  Sort enabled mods before disabled ones */
+"EnableStatus" | 
+/**  Sort mods alphabetically by name */
+"Alphabetical" | 
+/**  Sort mods from largest to smallest total file size */
+"Size";
 
 /* Tauri Specta runtime */
 async function typedError<T, E>(result: Promise<T>): Promise<{ status: "ok"; data: T } | { status: "error"; error: E }> {
