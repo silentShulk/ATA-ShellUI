@@ -1,5 +1,13 @@
 mod bindings;
-use bindings::{install_mod_command, launch_automata_command, list_mods_command};
+use bindings::{
+    install_mod_command,
+    uninstall_mod_command,
+    toggle_mod_command,
+    list_mods_command,
+    update_setting_command,
+    list_settings_command,
+    launch_automata_command
+};
 
 use ata::data::{
     mods::{ModType, Mods},
@@ -16,7 +24,11 @@ pub fn run() {
     let builder = Builder::new()
         .commands(collect_commands![
             install_mod_command,
+            uninstall_mod_command,
+            toggle_mod_command,
             list_mods_command,
+            update_setting_command,
+            list_settings_command,
             launch_automata_command
         ])
         .constant("MOD_TYPES", ModType::iter().collect::<Vec<_>>());

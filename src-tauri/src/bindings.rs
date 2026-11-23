@@ -2,13 +2,10 @@ use std::{error::Error, path::PathBuf, sync::RwLock};
 use tauri::{AppHandle, Manager};
 
 use ata::{
-    features::{
-        installation::install_mod,
-        mod_managing::list_mods
-    },
     data::{
-        mods::{Mods, Mod},
-        settings::Settings
+        mods::{Mod, Mods}, settings::Settings
+    }, features::{
+        installation::install_mod, mod_managing::{list_mods, toggle_mod}, uninstallation::uninstall_mod
     }
 };
 
@@ -43,9 +40,9 @@ pub async fn install_mod_command(
 ) -> Result<Mod, String> {
     try_run_blocking(app, move |app| {
         let settings = app.state::<RwLock<Settings>>();
-        let mods = app.state::<RwLock<Mods>>();
-
         let settings = settings.read().unwrap();
+        
+        let mods = app.state::<RwLock<Mods>>();
         let mut mods = mods.write().unwrap();
 
         install_mod(&mod_archive_path, &answered_name, overwrite_flag, &settings, &mut mods)
@@ -55,7 +52,68 @@ pub async fn install_mod_command(
 
 #[tauri::command]
 #[specta::specta]
+pub async fn uninstall_mod_command(
+    mod_name: String,
+    app: AppHandle
+) -> Result<Mod, String> {
+    try_run_blocking(app, move |app| {
+        let mods = app.state::<RwLock<Mods>>();
+        let mut mods = mods.write().unwrap();
+
+        uninstall_mod(&mod_name, &mut mods)
+    })
+    .await
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn toggle_mod_command(
+    mod_name: String,
+    app: AppHandle
+) -> Result<Mod, String> {
+    try_run_blocking(app, move |app| {
+        let mods = app.state::<RwLock<Mods>>();
+        let mut mods = mods.write().unwrap();
+
+        toggle_mod(&mod_name, &mut mods)
+    })
+    .await
+}
+
+#[tauri::command]
+#[specta::specta]
 pub async fn list_mods_command(app: AppHandle) -> Vec<Mod> {
+    run_blocking(app, move |app| {
+        let settings = app.state::<RwLock<Settings>>();
+        let mods = app.state::<RwLock<Mods>>();
+        
+        let settings = settings.read().unwrap();
+        let mods = mods.read().unwrap();
+        
+        list_mods(&settings.sorting_order, &mods.mods)
+    })
+    .await
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn update_setting_command(
+    setting: String,
+    value: String,
+    app: AppHandle
+) -> Result<Settings, String> {
+    try_run_blocking(app, move |app| {
+        let settings = app.state::<RwLock<Settings>>();
+        let mut settings = settings.write().unwrap();
+        
+        settings.update_setting(&setting, &value)
+    })
+    .await
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn list_settings_command(app: AppHandle) -> Vec<Mod> {
     run_blocking(app, move |app| {
         let settings = app.state::<RwLock<Settings>>();
         let mods = app.state::<RwLock<Mods>>();
