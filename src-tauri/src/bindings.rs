@@ -1,5 +1,5 @@
-use std::{path::PathBuf, sync::Mutex};
-use tauri::{AppHandle, State, Emitter};
+use std::{error::Error, path::PathBuf, sync::RwLock};
+use tauri::{AppHandle, Manager};
 
 use ata::{
     features::{
@@ -12,14 +12,25 @@ use ata::{
     }
 };
 
-async fn dispatch<T, C>(command: C) -> Result<T, String>
+async fn run_blocking<T, C>(app: AppHandle, command: C) -> T
 where
-    C: FnOnce() -> Result<T, String> + Send + 'static,
+    C: FnOnce(AppHandle) -> T + Send + 'static,
     T: Send + 'static,
 {
-    tauri::async_runtime::spawn_blocking(command)
+    tauri::async_runtime::spawn_blocking(move || command(app))
         .await
-        .map_err(|e| e.to_string())?
+        .expect("Backend Panicked")
+}
+
+async fn try_run_blocking<T, E, C>(app: AppHandle, command: C) -> Result<T, String>
+where
+    C: FnOnce(AppHandle) -> Result<T, E> + Send + 'static,
+    T: Send + 'static,
+    E: Error + Send + 'static,
+{
+    run_blocking(app, command)
+        .await
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -28,19 +39,33 @@ pub async fn install_mod_command(
     mod_archive_path: PathBuf,
     answered_name: String,
     overwrite_flag: bool,
-    settings: State<'_, Settings>,
-    mods: State<'_, Mutex<Mods>>,
-    app: AppHandle
+    app: AppHandle,
 ) -> Result<Mod, String> {
-    let mut mods = mods.lock().unwrap();
+    try_run_blocking(app, move |app| {
+        let settings = app.state::<RwLock<Settings>>();
+        let mods = app.state::<RwLock<Mods>>();
 
-    dispatch(|| install_mod(&mod_archive_path, &answered_name, overwrite_flag, &settings, &mut mods))
+        let settings = settings.read().unwrap();
+        let mut mods = mods.write().unwrap();
+
+        install_mod(&mod_archive_path, &answered_name, overwrite_flag, &settings, &mut mods)
+    })
+    .await
 }
 
 #[tauri::command]
 #[specta::specta]
-pub fn list_mods_command(mods: State<Mods>, settings: State<Settings>) -> Vec<Mod> {
-    list_mods(&settings.sorting_order, &mods.mods)
+pub async fn list_mods_command(app: AppHandle) -> Vec<Mod> {
+    run_blocking(app, move |app| {
+        let settings = app.state::<RwLock<Settings>>();
+        let mods = app.state::<RwLock<Mods>>();
+        
+        let settings = settings.read().unwrap();
+        let mods = mods.read().unwrap();
+        
+        list_mods(&settings.sorting_order, &mods.mods)
+    })
+    .await
 }
 
 #[tauri::command]

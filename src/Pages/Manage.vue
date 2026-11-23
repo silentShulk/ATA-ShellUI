@@ -10,7 +10,7 @@ const selectedTypes = computed<ModType[]>(() =>
 
 const mods = ref<Mod[]>([])
 onMounted(async () => {
-  mods.value = await commands.listMods()
+  mods.value = await commands.listModsCommand()
 })
 
 const orderedMods = computed(() => {

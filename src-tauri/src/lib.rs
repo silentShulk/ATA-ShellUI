@@ -6,6 +6,7 @@ use ata::data::{
     settings::Settings
 };
 
+use std::sync::RwLock;
 use strum::IntoEnumIterator;
 use specta_typescript::Typescript;
 use tauri_specta::{collect_commands, Builder};
@@ -28,8 +29,8 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(builder.invoke_handler())
-        .manage(Mods::load_data())
-        .manage(Settings::load_settings())
+        .manage(RwLock::new(Mods::load_data().unwrap()))
+        .manage(RwLock::new(Settings::load_settings().unwrap()))
         .setup(move |app| {
             builder.mount_events(app);
             Ok(())

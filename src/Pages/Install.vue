@@ -4,6 +4,7 @@ import Console from '../Components/Console.vue'
 import { listen, UnlistenFn } from '@tauri-apps/api/event'
 import { open } from '@tauri-apps/plugin-dialog';
 import { invoke } from '@tauri-apps/api/core';
+import { commands } from '../bindings';
 
 // Steps
 enum StepProgress { NotDone, Doing, Done }
@@ -92,7 +93,7 @@ function getName() {
 
 const installationOnGoing = ref(false)
 async function installMod() {
-  await invoke('install_mod', { answeredName: modName.value })
+  commands.installModCommand(modArchive.value, modName.value, false)
   installationOnGoing.value = false
   goTo(3)
 }

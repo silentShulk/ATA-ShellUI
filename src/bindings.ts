@@ -4,7 +4,7 @@ import { invoke as __TAURI_INVOKE } from "@tauri-apps/api/core";
 
 /** Commands */
 export const commands = {
-	installModCommand: (compressedModFolderPath: string, answeredName: string, forcedOverwrite: boolean) => typedError<Mod, string>(__TAURI_INVOKE("install_mod_command", { compressedModFolderPath, answeredName, forcedOverwrite })),
+	installModCommand: (modArchivePath: string, answeredName: string, overwriteFlag: boolean) => typedError<Mod, string>(__TAURI_INVOKE("install_mod_command", { modArchivePath, answeredName, overwriteFlag })),
 	listModsCommand: () => __TAURI_INVOKE<Mod[]>("list_mods_command"),
 	launchAutomataCommand: () => typedError<null, string>(__TAURI_INVOKE("launch_automata_command")),
 };

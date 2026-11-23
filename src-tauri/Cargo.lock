@@ -12,6 +12,7 @@ dependencies = [
  "serde_json",
  "sevenz-rust",
  "shellexpand",
+ "specta",
  "strum",
  "thiserror 2.0.21",
  "unrar",
