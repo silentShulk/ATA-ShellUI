@@ -12,29 +12,29 @@ use ata::{
     }
 };
 
+async fn dispatch<T, C>(command: C) -> Result<T, String>
+where
+    C: FnOnce() -> Result<T, String> + Send + 'static,
+    T: Send + 'static,
+{
+    tauri::async_runtime::spawn_blocking(command)
+        .await
+        .map_err(|e| e.to_string())?
+}
+
 #[tauri::command]
 #[specta::specta]
-pub fn install_mod_command(
-    compressed_mod_folder_path: PathBuf,
+pub async fn install_mod_command(
+    mod_archive_path: PathBuf,
     answered_name: String,
-    forced_overwrite: bool,
-    settings: State<Mutex<Settings>>,
-    mods: State<Mutex<Mods>>,
+    overwrite_flag: bool,
+    settings: State<'_, Settings>,
+    mods: State<'_, Mutex<Mods>>,
     app: AppHandle
 ) -> Result<Mod, String> {
-    let settings = settings.lock().unwrap();
     let mut mods = mods.lock().unwrap();
 
-    install_mod(
-        &compressed_mod_folder_path,
-        &answered_name,
-        forced_overwrite,
-        &settings,
-        &mut mods,
-    ).map_err(|e| {
-        app.emit("error", e.to_string()).unwrap();
-        e.to_string()
-    })
+    dispatch(|| install_mod(&mod_archive_path, &answered_name, overwrite_flag, &settings, &mut mods))
 }
 
 #[tauri::command]
