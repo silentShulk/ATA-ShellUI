@@ -3,8 +3,8 @@ import { reactive, ref, onMounted, onUnmounted } from 'vue'
 import Console from '../Components/Console.vue'
 import { listen, UnlistenFn } from '@tauri-apps/api/event'
 import { open } from '@tauri-apps/plugin-dialog';
-import { invoke } from '@tauri-apps/api/core';
 import { commands } from '../bindings';
+import { InstallationInput, InstallationLogEntry } from '../Types/installation';
 
 // Steps
 enum StepProgress { NotDone, Doing, Done }
@@ -60,6 +60,7 @@ const goTo = (i: number) => {
   }
 }
 
+// Mod
 const modArchive = ref<string>("")
 const folderSelected = ref(false)
 async function getArchive() {

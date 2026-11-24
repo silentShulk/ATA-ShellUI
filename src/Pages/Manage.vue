@@ -3,9 +3,9 @@ import { computed, onMounted, ref } from 'vue';
 import { commands, MOD_TYPES, type Mod, type ModType } from '../bindings';
 import { getLabelByTipo, getIconaByTipo, getColoreByTipo, getSfondoByTipo, getAccentoByTipo, getAccentoOppostoByTipo } from '../Functions/manage'
 
-const activeFilters = ref<boolean[]>(MOD_TYPES.map(() => false))
+const selectedFilters = ref<boolean[]>(MOD_TYPES.map(() => false))
 const selectedTypes = computed<ModType[]>(() =>
-  MOD_TYPES.filter((_, i) => activeFilters.value[i])
+  MOD_TYPES.filter((_, i) => selectedFilters.value[i])
 )
 
 const mods = ref<Mod[]>([])
@@ -29,6 +29,11 @@ const orderedMods = computed(() => {
 
   return sortedMods
 })
+
+const toggleMod = async (modName: string) => {
+  commands.toggleModCommand(modName)
+  mods.value = await commands.listModsCommand()
+}
 </script>
 
 
@@ -46,8 +51,8 @@ const orderedMods = computed(() => {
             <div id="filters-buttons" class="flex-column gv-20">
                 <button v-for="(modType, i) in MOD_TYPES" :key="modType"
                 class="flex-row ata-btn-small-long accent-border gh-10 filter"
-                @click="activeFilters[i]=!activeFilters[i]"
-                :class="{ 'ml-40': activeFilters[i] }">
+                @click="selectedFilters[i]=!selectedFilters[i]"
+                :class="{ 'ml-40': selectedFilters[i] }">
                     <h3 class="ata-h3 ata-font-icons" :class="getColoreByTipo(modType)">{{ getIconaByTipo(modType) }}</h3>
                     <h3 class="ata-h3 ata-font-text main">{{ getLabelByTipo(modType) }}</h3>
                 </button>
@@ -57,8 +62,8 @@ const orderedMods = computed(() => {
     
     <div id="mods-list" class="ata-border-small ata-border-solid">
         <div id="mods-scroll" class="flex-column align-center ata-scrollbar gv-20 pb-20">
-            <div v-for="mod in orderedMods" :key="mod.uid">
-                <div class="flex-column ata-option-big align-center justify-space-between pv-5 option"
+            <div v-for="mod in orderedMods" :key="mod.uid" @click="toggleMod(mod.name)">
+                <div class="flex-column ata-option-big align-center justify-space-between pv-5 mod"
                 :class="[mod.enabled ? 'ata-border-solid' : 'ata-border-dashed', getSfondoByTipo(mod.mod_type), {'ata-shadow-big-ts': mod.enabled}]"
                 :style="{borderColor: getAccentoByTipo(mod.mod_type), opacity: mod.enabled ? 1 : 0.5}">
                     <h2 class="ata-h2 ata-font-text" :style="{color: getAccentoByTipo(mod.mod_type)}">{{mod.name}}</h2>
@@ -127,7 +132,9 @@ const orderedMods = computed(() => {
     }
 }
 
-.option {
+.mod {
+    
     border-radius: 28px;
+    transition: box-shadow .5s ease, opacity .5s ease;
 }
 </style>
