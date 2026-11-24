@@ -1,8 +1,8 @@
 <script setup>
-import { invoke } from '@tauri-apps/api/core';
+import { commands } from '../bindings';
 
 async function launch_automata() {
-  await invoke('launch_automata')
+  commands.launchAutomataCommand()
 }
 </script>
 
