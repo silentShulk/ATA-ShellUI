@@ -1,0 +1,38 @@
+// Radio row built on a <button role="menuitemradio" aria-checked="true|false">
+// Ring + dot follow `color` (currentColor), so recolour with any colour class.
+// Combine with typography classes: class="ata-radio ata-p ata-font-text"
+.ata-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &::before {
+        content: '';
+        flex-shrink: 0;
+        box-sizing: border-box;
+
+        width: 14px;
+        height: 14px;
+
+        border: 2px solid currentColor;
+        border-radius: 50%;
+    }
+
+    &[aria-checked="true"]::before {
+        background: radial-gradient(circle, currentColor 35%, transparent 40%);
+    }
+
+    &:focus-visible {
+        outline: 2px dashed currentColor;
+        outline-offset: 2px;
+    }
+}
