@@ -14,7 +14,10 @@ const selectedMods = ref<string[]>([])
 
 
 <template>
-<div>
-    <Select v-model="selectedMods" :mods="mods" ></Select>
-</div>
+    <div class="flex-row align-center justify-space-between">
+        <Select v-model="selectedMods" :mods="mods" ></Select>
+        <div v-if="selectedMods.length > 0">
+            sigma sigma
+        </div>
+    </div>
 </template>
