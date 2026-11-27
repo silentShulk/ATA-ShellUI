@@ -5,6 +5,7 @@
     height: 90px;
 
     @extend .ata-border-small;
+    @extend .ata-border-solid;
 }
 
 .ata-option-medium {
@@ -12,6 +13,7 @@
     height: 64px;
 
     @extend .ata-border-small;
+    @extend .ata-border-solid;
 }
 
 .ata-option-small {
@@ -19,4 +21,5 @@
     height: 45px;
 
     @extend .ata-border-small;
+    @extend .ata-border-solid;
 }

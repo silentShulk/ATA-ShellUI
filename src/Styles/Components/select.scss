@@ -1,9 +1,6 @@
 @use "../Classes";
 
 %ata-select {
-    width: 560px;
-    height: 610px;
-
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -12,7 +9,7 @@
 .ata-select-big {
     @extend %ata-select;
     
-    width: 560px;
+    width: 540px;
     height: 610px;
 
     @extend .ata-border-big;

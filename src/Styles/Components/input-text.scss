@@ -4,9 +4,6 @@
 %input-text-ata {
     display: flex;
 
-    @extend .justify-center;
-    @extend .align-start;
-
     @extend .pl-10;
 }
 %input-text-ata::placeholder {
@@ -62,7 +59,7 @@
 .ata-input-text-big-select {
     @extend %input-text-ata;
     
-    width: 540px;
+    width: 520px;
     height: 90px;
 
     @extend .ata-border-big;
