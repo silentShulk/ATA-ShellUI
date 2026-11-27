@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Mod } from '../bindings'
+import { getCortoByTipo } from '../Functions/uninstall';
 
 const props = defineProps<{ mods: Mod[] }>()
 
@@ -19,13 +20,13 @@ const selected = defineModel<string[]>({ default: () => [] })
     <div id="mod-list">
         <div v-for="mod in mods" :key="mod.name" class="ata-option-big ata-radius-big flex-row align-center justify-space-between bd-dark pv-10 ph-20 gv-5"> 
             <div class="flex-column">
-                <h2 class="ata-h2 ata-font-text">Sigma</h2>
+                <h2 class="ata-h2 ata-font-text">{{mod.name}}</h2>
                 <div class="flex-row gh-5 align-baseline">
-                    <h3 class="ata-h3 ata-font-text">Pl. Models</h3>
+                    <h3 class="ata-h3 ata-font-text">{{getCortoByTipo(mod.mod_type)}}</h3>
                     <h3 class="ata-h3 ata-font-text">-</h3>
-                    <p class="ata-p ata-font-text">3 files</p>
+                    <p class="ata-p ata-font-text">{{mod.files.length}} files</p>
                     <p class="ata-p ata-font-text">-</p>
-                    <p class="ata-p ata-font-text">Installed Oct 2</p>
+                    <p class="ata-p ata-font-text">Installed {{mod.install_date}}</p>
                 </div>
             </div>
             <div class="flex-row align-center ata-radius-big ata-border-smaller ata-border-solid bd-dark p-5 gh-5">
