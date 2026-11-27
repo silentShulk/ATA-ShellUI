@@ -16,6 +16,7 @@ import "./Styles/Components/input-text.scss";
 import "./Styles/Components/option.scss";
 import "./Styles/Components/radio.scss";
 import "./Styles/Components/scrollbar.scss";
+import "./Styles/Components/select.scss";
 import '@fontsource-variable/material-symbols-rounded';
 import '@fontsource-variable/jetbrains-mono';
 

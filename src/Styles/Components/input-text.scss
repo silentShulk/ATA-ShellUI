@@ -58,3 +58,17 @@
     @extend .ata-radius-small;
     @extend .ata-shadow-small;
 }
+
+.ata-input-text-big-select {
+    @extend %input-text-ata;
+    
+    width: 540px;
+    height: 90px;
+
+    @extend .ata-border-big;
+    @extend .ata-border-solid;
+
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
