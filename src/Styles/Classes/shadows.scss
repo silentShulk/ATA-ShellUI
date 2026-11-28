@@ -1,23 +1,20 @@
 @use "../colors.scss" as *;
 
-$shadow-color: $dark;
-
 .ata-shadow-big {
-    box-shadow: 0 5px 5px 2px $shadow-color;
+  box-shadow: 0 5px 5px 2px var(--ata-shadow-color, #{$dark});
 }
 .ata-shadow-medium {
-    box-shadow: 0 4px 4px 2px $shadow-color;
+  box-shadow: 0 4px 4px 2px var(--ata-shadow-color, #{$dark});
 }
 .ata-shadow-small {
-    box-shadow: 0 3px 3px 2px $shadow-color;
+  box-shadow: 0 3px 3px 2px var(--ata-shadow-color, #{$dark});
 }
 
-.ata-shadow-big-ts {
-    box-shadow: 0 5px 5px 2px rgba($shadow-color, 0.5);
-}
-.ata-shadow-medium-ts {
-    box-shadow: 0 4px 4px 2px rgba($shadow-color, 0.5);
-}
-.ata-shadow-small-ts {
-    box-shadow: 0 3px 3px 2px rgba($shadow-color, 0.5);
+@each $name, $value in $colors {
+  .ata-shadow-#{$name} {
+    --ata-shadow-color: #{$value};
+  }
+  .ata-shadow-#{$name}-ts {
+    --ata-shadow-color: #{rgba($value, 0.5)};
+  }
 }
